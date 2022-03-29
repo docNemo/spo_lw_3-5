@@ -1,0 +1,35 @@
+number /[0-9]+(\.[0-9]*)?([eE][\+\-]?[0-9]+)?/ { float(text) }
+plus /\+/
+minus /\-/
+mul /\*/
+del /\//
+pow /\^/
+id /[a-z_][a-z_0-9]*/ {text}
+lparen /\(/
+rparen /\)/
+comma /,/
+assign /=/
+/ +/
+
+%%
+
+E -> %left1 E plus  E { ('+', _1, _3) }
+   | %left1 E minus E { ('-', _1, _3) }
+   | %left2 E mul E { ('*', _1, _3) }
+   | %left2 E del E { ('/', _1, _3) }
+   | %right3 E pow E { ('^', _1, _3) }
+   | lparen E rparen { _2 }
+   | id { _1 }
+   | number { _1 }
+   | %non4 minus E { ('-', _2) }	
+   | %right0 id assign E { ('=', _1, _3) }
+   | %non0 id lparen Args rparen assign E { (_1, _3, _6) }
+   ;
+
+Args ->
+      | Args1  { _1 }
+   ;
+
+Args1 -> id comma Args1 { [_1] + _3 }
+      | id { [_1] }
+      ;
