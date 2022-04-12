@@ -26,6 +26,7 @@ E -> %left1 E plus  E { ('+', _1, _3) }
    | %non4 minus E { ('-', _2) }	
    | %right0 let id assign E { ('=', _2, _4) }
    | %non0 func id lparen Args rparen assign E { (_2, _4, _7) }
+   | id lparen Args rparen { (_1, _3) }
    ;
 
 Args ->
