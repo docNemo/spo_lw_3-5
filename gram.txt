@@ -35,4 +35,6 @@ Args ->
 
 Args1 -> id comma Args1 { [_1] + _3 }
       | id { [_1] }
+      | number comma Args1 { [_1] + _3 }
+      | number { [_1] }
       ;
