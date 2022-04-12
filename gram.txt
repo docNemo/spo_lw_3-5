@@ -1,40 +1,55 @@
-number /[0-9]+(\.[0-9]*)?([eE][\+\-]?[0-9]+)?/ { float(text) }
+int /[0-9]+/ { int(text) }
+float /[0-9]+(\.[0-9]*)?([eE][\+\-]?[0-9]+)?/ { float(text) }
 plus /\+/
 minus /\-/
 mul /\*/
 del /\//
 pow /\^/
-id /[a-z_][a-z_0-9]*/ {text}
+func /func/
+let /let/
 lparen /\(/
 rparen /\)/
 comma /,/
 assign /=/
-func /$func/
-let /$let/
+doublep /:/
+type /int|float/ {text}
 / +/
+id /[a-z_][a-z_0-9]*/ {text}
 
 %%
 
-E -> %left1 E plus  E { ('+', _1, _3) }
-   | %left1 E minus E { ('-', _1, _3) }
-   | %left2 E mul E { ('*', _1, _3) }
-   | %left2 E del E { ('/', _1, _3) }
-   | %right3 E pow E { ('^', _1, _3) }
+%top {
+import classes
+}
+
+
+E -> %left1 E plus  E { classes.make(classes.BinaryOp, '+', _1, _3) }
+   | %left1 E minus E { classes.make(classes.BinaryOp, '-', _1, _3) }
+   | %left2 E mul E { classes.make(classes.BinaryOp, '*', _1, _3) }
+   | %left2 E del E { classes.make(classes.BinaryOp, '/', _1, _3) }
+   | %right3 E pow E { classes.make(classes.BinaryOp,'^', _1, _3) }
    | lparen E rparen { _2 }
-   | id { _1 }
-   | number { _1 }
-   | %non4 minus E { ('-', _2) }	
-   | %right0 let id assign E { ('=', _2, _4) }
+   | id { classes.make(classes.Id, _1) }
+   | int { classes.make(classes.Literal, _1, "int") }
+   | float { classes.make(classes.Literal, _1, "float") }
+   | %non4 minus E { classes.make(classes.UnaryOP, '-', _2) }	
+   | %right0 let id assign E { classes.make(classes.Assign, _2, _4) }
    | %non0 func id lparen Args rparen assign E { (_2, _4, _7) }
-   | id lparen Args rparen { (_1, _3) }
+   | id lparen ArgsCall rparen { classes.make(classes.Call, _1, _3) }
    ;
 
 Args ->
       | Args1  { _1 }
    ;
 
-Args1 -> id comma Args1 { [_1] + _3 }
-      | id { [_1] }
-      | number comma Args1 { [_1] + _3 }
-      | number { [_1] }
+Args1 -> id doublep type comma Args1 { [classes.make(classes.Param,_1, _3)] + _5 }
+      | id doublep type { [classes.make(classes.Param,_1, _3)] }
+      ;
+
+ArgsCall ->
+      | Args1Call  { _1 }
+   ;
+
+Args1Call -> E comma Args1Call { [_1] + _3 }
+      | E { [_1] }
       ;
