@@ -9,6 +9,8 @@ lparen /\(/
 rparen /\)/
 comma /,/
 assign /=/
+func /$func/
+let /$let/
 / +/
 
 %%
@@ -22,8 +24,8 @@ E -> %left1 E plus  E { ('+', _1, _3) }
    | id { _1 }
    | number { _1 }
    | %non4 minus E { ('-', _2) }	
-   | %right0 id assign E { ('=', _1, _3) }
-   | %non0 id lparen Args rparen assign E { (_1, _3, _6) }
+   | %right0 let id assign E { ('=', _2, _4) }
+   | %non0 func id lparen Args rparen assign E { (_2, _4, _7) }
    ;
 
 Args ->
