@@ -19,31 +19,31 @@ id /[a-z_][a-z_0-9]*/ {text}
 %%
 
 %top {
-import classes
+from classes import *
 }
 
 
-E -> %left1 E plus  E { classes.make(classes.BinaryOp, '+', _1, _3) }
-   | %left1 E minus E { classes.make(classes.BinaryOp, '-', _1, _3) }
-   | %left2 E mul E { classes.make(classes.BinaryOp, '*', _1, _3) }
-   | %left2 E del E { classes.make(classes.BinaryOp, '/', _1, _3) }
-   | %right3 E pow E { classes.make(classes.BinaryOp,'^', _1, _3) }
+E -> %left1 E plus  E { make(BinaryOp, '+', _1, _3) }
+   | %left1 E minus E { make(BinaryOp, '-', _1, _3) }
+   | %left2 E mul E { make(BinaryOp, '*', _1, _3) }
+   | %left2 E del E { make(BinaryOp, '/', _1, _3) }
+   | %right3 E pow E { make(BinaryOp,'^', _1, _3) }
    | lparen E rparen { _2 }
-   | id { classes.make(classes.Id, _1) }
-   | int { classes.make(classes.Literal, _1, "int") }
-   | float { classes.make(classes.Literal, _1, "float") }
-   | %non4 minus E { classes.make(classes.UnaryOP, '-', _2) }	
-   | %right0 let id assign E { classes.make(classes.Assign, _2, _4) }
-   | %non0 func id lparen Args rparen assign E { (_2, _4, _7) }
-   | id lparen ArgsCall rparen { classes.make(classes.Call, _1, _3) }
+   | id { makeId(Id, _1) }
+   | int { make(Literal, _1, "int") }
+   | float { make(Literal, _1, "float") }
+   | %non4 minus E { make(UnaryOp, '-', _2) }	
+   | %right0 let id assign E { makeId(Assign, _2, _4) }
+   | %non0 func id lparen Args rparen assign E { makeF(_2, _4, _7) }
+   | id lparen ArgsCall rparen { make(Call, _1, _3) }
    ;
 
 Args ->
       | Args1  { _1 }
    ;
 
-Args1 -> id doublep type comma Args1 { [classes.make(classes.Param,_1, _3)] + _5 }
-      | id doublep type { [classes.make(classes.Param,_1, _3)] }
+Args1 -> id doublep type comma Args1 { [Param,_1, _3] + _5 }
+      | id doublep type { [Param,_1, _3] }
       ;
 
 ArgsCall ->

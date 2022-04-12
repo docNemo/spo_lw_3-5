@@ -3,19 +3,19 @@
 фмммммммммьммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммммм╣
 Ё 0       Ё %S -> . E %eof,%eof                                                                 Ё
 Ё         Ё ---                                                                                 Ё
-Ё         Ё E -> . func id lparen Args rparen assign E,%eof/del/minus/mul/plus/pow              Ё
 Ё         Ё E -> . lparen E rparen,%eof/del/minus/mul/plus/pow                                  Ё
-Ё         Ё E -> . let id assign E,%eof/del/minus/mul/plus/pow                                  Ё
 Ё         Ё E -> . E mul E,%eof/del/minus/mul/plus/pow                                          Ё
 Ё         Ё E -> . E plus E,%eof/del/minus/mul/plus/pow                                         Ё
 Ё         Ё E -> . E minus E,%eof/del/minus/mul/plus/pow                                        Ё
 Ё         Ё E -> . E del E,%eof/del/minus/mul/plus/pow                                          Ё
 Ё         Ё E -> . E pow E,%eof/del/minus/mul/plus/pow                                          Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,%eof/del/minus/mul/plus/pow                        Ё
-Ё         Ё E -> . id,%eof/del/minus/mul/plus/pow                                               Ё
 Ё         Ё E -> . float,%eof/del/minus/mul/plus/pow                                            Ё
 Ё         Ё E -> . int,%eof/del/minus/mul/plus/pow                                              Ё
 Ё         Ё E -> . minus E,%eof/del/minus/mul/plus/pow                                          Ё
+Ё         Ё E -> . func id lparen Args rparen assign E,%eof/del/minus/mul/plus/pow              Ё
+Ё         Ё E -> . let id assign E,%eof/del/minus/mul/plus/pow                                  Ё
+Ё         Ё E -> . id,%eof/del/minus/mul/plus/pow                                               Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
 Ё 1       Ё %S -> E %eof .,%eof                                                                 Ё
 Ё         Ё ---                                                                                 Ё
@@ -28,50 +28,27 @@
 Ё         Ё E -> E . pow E,%eof/del/minus/mul/plus/pow                                          Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 3       Ё E -> func id lparen Args rparen assign . E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
-Ё         Ё ---                                                                                 Ё
-Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
-Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
-Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
-Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
-Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
-Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
-Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
-Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 4       Ё E -> func . id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 3       Ё Args1 -> id doublep . type,rparen                                                   Ё
+Ё         Ё Args1 -> id doublep . type comma Args1,rparen                                       Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 5       Ё E -> func id . lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 4       Ё Args1 -> id . doublep type,rparen                                                   Ё
+Ё         Ё Args1 -> id . doublep type comma Args1,rparen                                       Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 6       Ё E -> func id lparen . Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 5       Ё Args1 -> id doublep type .,rparen                                                   Ё
+Ё         Ё Args1 -> id doublep type . comma Args1,rparen                                       Ё
 Ё         Ё ---                                                                                 Ё
-Ё         Ё Args -> .,rparen                                                                    Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 6       Ё Args1 -> id doublep type comma . Args1,rparen                                       Ё
+Ё         Ё ---                                                                                 Ё
 Ё         Ё Args1 -> . id doublep type,rparen                                                   Ё
 Ё         Ё Args1 -> . id doublep type comma Args1,rparen                                       Ё
-Ё         Ё Args -> . Args1,rparen                                                              Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 7       Ё E -> func id lparen Args rparen . assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 7       Ё Args1 -> id doublep type comma Args1 .,rparen                                       Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 8       Ё E -> func id lparen Args . rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
-Ё         Ё ---                                                                                 Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 9       Ё E -> func id lparen Args rparen assign E .,%eof/comma/del/minus/mul/plus/pow/rparen Ё
-Ё         Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
-Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
-Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё ---                                                                                 Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 10      Ё Args1Call -> E .,rparen                                                             Ё
+Ё 8       Ё Args1Call -> E .,rparen                                                             Ё
 Ё         Ё Args1Call -> E . comma Args1Call,rparen                                             Ё
 Ё         Ё E -> E . mul E,comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> E . plus E,comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -80,73 +57,53 @@
 Ё         Ё E -> E . pow E,comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 11      Ё Args1Call -> E comma . Args1Call,rparen                                             Ё
+Ё 9       Ё Args1Call -> E comma . Args1Call,rparen                                             Ё
 Ё         Ё ---                                                                                 Ё
-Ё         Ё E -> . func id lparen Args rparen assign E,comma/del/minus/mul/plus/pow/rparen      Ё
 Ё         Ё Args1Call -> . E,rparen                                                             Ё
 Ё         Ё Args1Call -> . E comma Args1Call,rparen                                             Ё
 Ё         Ё E -> . lparen E rparen,comma/del/minus/mul/plus/pow/rparen                          Ё
-Ё         Ё E -> . let id assign E,comma/del/minus/mul/plus/pow/rparen                          Ё
 Ё         Ё E -> . E mul E,comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . E plus E,comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> . E minus E,comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> . E del E,comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . E pow E,comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,comma/del/minus/mul/plus/pow/rparen                Ё
-Ё         Ё E -> . id,comma/del/minus/mul/plus/pow/rparen                                       Ё
 Ё         Ё E -> . float,comma/del/minus/mul/plus/pow/rparen                                    Ё
 Ё         Ё E -> . int,comma/del/minus/mul/plus/pow/rparen                                      Ё
 Ё         Ё E -> . minus E,comma/del/minus/mul/plus/pow/rparen                                  Ё
+Ё         Ё E -> . func id lparen Args rparen assign E,comma/del/minus/mul/plus/pow/rparen      Ё
+Ё         Ё E -> . let id assign E,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё E -> . id,comma/del/minus/mul/plus/pow/rparen                                       Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 12      Ё Args1Call -> E comma Args1Call .,rparen                                             Ё
+Ё 10      Ё Args1Call -> E comma Args1Call .,rparen                                             Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 13      Ё Args1 -> id doublep . type,rparen                                                   Ё
-Ё         Ё Args1 -> id doublep . type comma Args1,rparen                                       Ё
+Ё 11      Ё Args -> Args1 .,rparen                                                              Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 14      Ё Args1 -> id . doublep type,rparen                                                   Ё
-Ё         Ё Args1 -> id . doublep type comma Args1,rparen                                       Ё
+Ё 12      Ё ArgsCall -> Args1Call .,rparen                                                      Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 15      Ё Args1 -> id doublep type .,rparen                                                   Ё
-Ё         Ё Args1 -> id doublep type . comma Args1,rparen                                       Ё
+Ё 13      Ё E -> lparen . E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                 Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 16      Ё Args1 -> id doublep type comma . Args1,rparen                                       Ё
-Ё         Ё ---                                                                                 Ё
-Ё         Ё Args1 -> . id doublep type,rparen                                                   Ё
-Ё         Ё Args1 -> . id doublep type comma Args1,rparen                                       Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 17      Ё Args1 -> id doublep type comma Args1 .,rparen                                       Ё
-Ё         Ё ---                                                                                 Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 18      Ё Args -> Args1 .,rparen                                                              Ё
-Ё         Ё ---                                                                                 Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 19      Ё ArgsCall -> Args1Call .,rparen                                                      Ё
-Ё         Ё ---                                                                                 Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 20      Ё E -> lparen . E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё ---                                                                                 Ё
-Ё         Ё E -> . func id lparen Args rparen assign E,del/minus/mul/plus/pow/rparen            Ё
 Ё         Ё E -> . lparen E rparen,del/minus/mul/plus/pow/rparen                                Ё
-Ё         Ё E -> . let id assign E,del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> . E mul E,del/minus/mul/plus/pow/rparen                                        Ё
 Ё         Ё E -> . E plus E,del/minus/mul/plus/pow/rparen                                       Ё
 Ё         Ё E -> . E minus E,del/minus/mul/plus/pow/rparen                                      Ё
 Ё         Ё E -> . E del E,del/minus/mul/plus/pow/rparen                                        Ё
 Ё         Ё E -> . E pow E,del/minus/mul/plus/pow/rparen                                        Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,del/minus/mul/plus/pow/rparen                      Ё
-Ё         Ё E -> . id,del/minus/mul/plus/pow/rparen                                             Ё
 Ё         Ё E -> . float,del/minus/mul/plus/pow/rparen                                          Ё
 Ё         Ё E -> . int,del/minus/mul/plus/pow/rparen                                            Ё
 Ё         Ё E -> . minus E,del/minus/mul/plus/pow/rparen                                        Ё
+Ё         Ё E -> . func id lparen Args rparen assign E,del/minus/mul/plus/pow/rparen            Ё
+Ё         Ё E -> . let id assign E,del/minus/mul/plus/pow/rparen                                Ё
+Ё         Ё E -> . id,del/minus/mul/plus/pow/rparen                                             Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 21      Ё E -> lparen E rparen .,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 14      Ё E -> lparen E rparen .,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 22      Ё E -> lparen E . rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 15      Ё E -> lparen E . rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> E . mul E,del/minus/mul/plus/pow/rparen                                        Ё
 Ё         Ё E -> E . plus E,del/minus/mul/plus/pow/rparen                                       Ё
 Ё         Ё E -> E . minus E,del/minus/mul/plus/pow/rparen                                      Ё
@@ -154,53 +111,23 @@
 Ё         Ё E -> E . pow E,del/minus/mul/plus/pow/rparen                                        Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 23      Ё E -> let id assign . E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 16      Ё E -> E mul . E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё ---                                                                                 Ё
-Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
-Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 24      Ё E -> let id . assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё ---                                                                                 Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 25      Ё E -> let . id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё ---                                                                                 Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 26      Ё E -> let id assign E .,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
-Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
-Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё ---                                                                                 Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 27      Ё E -> E mul . E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё ---                                                                                 Ё
 Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
-Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
-Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
-Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
 Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
-Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
-Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
-Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 28      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё 17      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> E mul E .,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
@@ -208,7 +135,7 @@
 Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 29      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё 18      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> E plus E .,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
@@ -216,7 +143,7 @@
 Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 30      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё 19      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> E minus E .,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
@@ -224,7 +151,7 @@
 Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 31      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё 20      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
@@ -232,7 +159,7 @@
 Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 32      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё 21      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
@@ -240,7 +167,7 @@
 Ё         Ё E -> E pow E .,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 33      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё 22      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
@@ -248,212 +175,285 @@
 Ё         Ё E -> minus E .,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 34      Ё E -> E plus . E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
+Ё 23      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
+Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
+Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> func id lparen Args rparen assign E .,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё ---                                                                                 Ё
-Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 24      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
+Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
+Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> let id assign E .,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё ---                                                                                 Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 25      Ё E -> E plus . E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
+Ё         Ё ---                                                                                 Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
-Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 35      Ё E -> E minus . E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
-Ё         Ё ---                                                                                 Ё
 Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
-Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 26      Ё E -> E minus . E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
+Ё         Ё ---                                                                                 Ё
+Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
-Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 36      Ё E -> E del . E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё ---                                                                                 Ё
 Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
-Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 27      Ё E -> E del . E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё ---                                                                                 Ё
+Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
-Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 37      Ё E -> E pow . E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
-Ё         Ё ---                                                                                 Ё
 Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
-Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 28      Ё E -> E pow . E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё ---                                                                                 Ё
+Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
-Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 38      Ё E -> id . lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё 29      Ё E -> id . lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
 Ё         Ё E -> id .,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 39      Ё E -> id lparen . ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё 30      Ё E -> id lparen . ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
 Ё         Ё ---                                                                                 Ё
 Ё         Ё ArgsCall -> .,rparen                                                                Ё
-Ё         Ё E -> . func id lparen Args rparen assign E,comma/del/minus/mul/plus/pow/rparen      Ё
 Ё         Ё Args1Call -> . E,rparen                                                             Ё
 Ё         Ё Args1Call -> . E comma Args1Call,rparen                                             Ё
 Ё         Ё ArgsCall -> . Args1Call,rparen                                                      Ё
 Ё         Ё E -> . lparen E rparen,comma/del/minus/mul/plus/pow/rparen                          Ё
-Ё         Ё E -> . let id assign E,comma/del/minus/mul/plus/pow/rparen                          Ё
 Ё         Ё E -> . E mul E,comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . E plus E,comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> . E minus E,comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> . E del E,comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . E pow E,comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,comma/del/minus/mul/plus/pow/rparen                Ё
-Ё         Ё E -> . id,comma/del/minus/mul/plus/pow/rparen                                       Ё
 Ё         Ё E -> . float,comma/del/minus/mul/plus/pow/rparen                                    Ё
 Ё         Ё E -> . int,comma/del/minus/mul/plus/pow/rparen                                      Ё
 Ё         Ё E -> . minus E,comma/del/minus/mul/plus/pow/rparen                                  Ё
+Ё         Ё E -> . func id lparen Args rparen assign E,comma/del/minus/mul/plus/pow/rparen      Ё
+Ё         Ё E -> . let id assign E,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё E -> . id,comma/del/minus/mul/plus/pow/rparen                                       Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 40      Ё E -> id lparen ArgsCall rparen .,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё 31      Ё E -> id lparen ArgsCall rparen .,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 41      Ё E -> id lparen ArgsCall . rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё 32      Ё E -> id lparen ArgsCall . rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 42      Ё E -> float .,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
+Ё 33      Ё E -> float .,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 43      Ё E -> int .,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 34      Ё E -> int .,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 44      Ё E -> minus . E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё 35      Ё E -> minus . E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё ---                                                                                 Ё
-Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
-Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
 Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
 Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
 Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
-Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 36      Ё E -> func id lparen Args rparen assign . E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё ---                                                                                 Ё
+Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
+Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
+Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
+Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 37      Ё E -> func . id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё ---                                                                                 Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 38      Ё E -> func id . lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё ---                                                                                 Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 39      Ё E -> func id lparen . Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё ---                                                                                 Ё
+Ё         Ё Args -> .,rparen                                                                    Ё
+Ё         Ё Args1 -> . id doublep type,rparen                                                   Ё
+Ё         Ё Args1 -> . id doublep type comma Args1,rparen                                       Ё
+Ё         Ё Args -> . Args1,rparen                                                              Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 40      Ё E -> func id lparen Args rparen . assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё ---                                                                                 Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 41      Ё E -> func id lparen Args . rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё ---                                                                                 Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 42      Ё E -> let id assign . E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё ---                                                                                 Ё
+Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . E plus E,%eof/comma/del/minus/mul/plus/pow/rparen                            Ё
+Ё         Ё E -> . E minus E,%eof/comma/del/minus/mul/plus/pow/rparen                           Ё
+Ё         Ё E -> . E del E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . E pow E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё         Ё E -> . float,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
+Ё         Ё E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё         Ё E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                             Ё
+Ё         Ё E -> . func id lparen Args rparen assign E,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 43      Ё E -> let id . assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё ---                                                                                 Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 44      Ё E -> let . id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё         Ё ---                                                                                 Ё
 юдддддддддаддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
 зддддбддддддбддддддддбдддддддбдддддбдддддддддбдддддддбддддддбддддбдддддбдддддбддддддддбдддддддбдддддбддддддбдддддбддддддддбддддддбддддддбдддддддбдддддддддддбддддддддддбдддд©
 Ё    Ё %eof Ё assign Ё comma Ё del Ё doublep Ё float Ё func Ё id Ё int Ё let Ё lparen Ё minus Ё mul Ё plus Ё pow Ё rparen Ё type Ё Args Ё Args1 Ё Args1Call Ё ArgsCall Ё E  Ё
 фммммьммммммьммммммммьмммммммьмммммьмммммммммьмммммммьммммммьммммьмммммьмммммьммммммммьмммммммьмммммьммммммьмммммьммммммммьммммммьммммммьмммммммьмммммммммммьммммммммммьмммм╣
-Ё 0  Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 2  Ё
+Ё 0  Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 2  Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
 Ё 1  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 2  Ё 1    Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 2  Ё 1    Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 3  Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 9  Ё
+Ё 3  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё 5    Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 4  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 5  Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 4  Ё      Ё        Ё       Ё     Ё 3       Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 5  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё 6      Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 5  Ё      Ё        Ё 6     Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 6  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 14 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё 8    Ё 18    Ё           Ё          Ё    Ё
+Ё 6  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 4  Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё 7     Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 7  Ё      Ё 3      Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 7  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 8  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё 7      Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 8  Ё      Ё        Ё 9     Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 9  Ё      Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 9  Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё 10        Ё          Ё 8  Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 10 Ё      Ё        Ё 11    Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 10 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 11 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё 12        Ё          Ё 10 Ё
+Ё 11 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
 Ё 12 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 13 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё 15   Ё      Ё       Ё           Ё          Ё    Ё
+Ё 13 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 15 Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 14 Ё      Ё        Ё       Ё     Ё 13      Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 14 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 15 Ё      Ё        Ё 16    Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 15 Ё      Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё 14     Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 16 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 14 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё 17    Ё           Ё          Ё    Ё
+Ё 16 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 17 Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 17 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 17 Ё      Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 18 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 18 Ё      Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 19 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 19 Ё      Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 20 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 22 Ё
+Ё 20 Ё      Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 21 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 21 Ё      Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 22 Ё      Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё 21     Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 22 Ё      Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 23 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 26 Ё
+Ё 23 Ё      Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 24 Ё      Ё 23     Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 24 Ё      Ё        Ё       Ё 27  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 26    Ё 16  Ё 25   Ё 28  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 25 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 24 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 25 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 18 Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 26 Ё      Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 26 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 19 Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 27 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 28 Ё
+Ё 27 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 20 Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 28 Ё      Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 28 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 21 Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 29 Ё      Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 29 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё 30     Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 30 Ё      Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 30 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё 12        Ё 32       Ё 8  Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 31 Ё      Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 31 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 32 Ё      Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 32 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё 31     Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 33 Ё      Ё        Ё       Ё 36  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 35    Ё 27  Ё 34   Ё 37  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 33 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 34 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 29 Ё
+Ё 34 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 35 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 30 Ё
+Ё 35 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 22 Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 36 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 31 Ё
+Ё 36 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 23 Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 37 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 32 Ё
+Ё 37 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 38 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
 Ё 38 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё 39     Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 39 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё 19        Ё 41       Ё 10 Ё
+Ё 39 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 4  Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё 41   Ё 11    Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 40 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 40 Ё      Ё 36     Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
 Ё 41 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё 40     Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 42 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 42 Ё      Ё        Ё       Ё     Ё         Ё 33    Ё 37   Ё 29 Ё 34  Ё 44  Ё 13     Ё 35    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 24 Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 43 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
+Ё 43 Ё      Ё 42     Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддедддд╢
-Ё 44 Ё      Ё        Ё       Ё     Ё         Ё 42    Ё 4    Ё 38 Ё 43  Ё 25  Ё 20     Ё 44    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 33 Ё
+Ё 44 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 43 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё
 юддддаддддддаддддддддадддддддадддддадддддддддадддддддаддддддаддддадддддадддддаддддддддадддддддадддддаддддддадддддаддддддддаддддддаддддддадддддддадддддддддддаддддддддддадддды
