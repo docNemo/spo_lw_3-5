@@ -48,7 +48,7 @@ FBody -> %left1 FBody plus  FBody { makeFBody(BinaryOp, '+', _1, _3) }
    | int { makeFBody(Literal, _1, "int") }
    | float { makeFBody(Literal, _1, "float") }
    | %non4 minus FBody { makeFBody(UnaryOp, '-', _2) }
-   | id lparen ArgsCall rparen { makeC(Call, _1, _3) }
+   | id lparen ArgsCallF rparen { makeC(Call, _1, _3) }
    ;
 
 Args ->
@@ -57,6 +57,14 @@ Args ->
 
 Args1 -> id doublep type comma Args1 { [makeFArgs(Param,_1, _3)] + _5 }
       | id doublep type { [makeFArgs(Param,_1, _3)] }
+      ;
+
+ArgsCallF ->
+      | Args1Call  { _1 }
+   ;
+
+Args1CallF -> FBody comma Args1CallF { [_1] + _3 }
+      | FBody { [_1] }
       ;
 
 ArgsCall ->
