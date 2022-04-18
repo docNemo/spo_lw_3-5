@@ -34,16 +34,29 @@ E -> %left1 E plus  E { make(BinaryOp, '+', _1, _3) }
    | float { make(Literal, _1, "float") }
    | %non4 minus E { make(UnaryOp, '-', _2) }	
    | %right0 let id assign E { makeId(Assign, _2, _4) }
-   | %non0 func id lparen Args rparen assign E { makeF(_2, _4, _7) }
-   | id lparen ArgsCall rparen { make(Call, _1, _3) }
+   | %non0 func id lparen Args rparen assign FBody { makeF(_2, _4, _7) }
+   | id lparen ArgsCall rparen { makeC(Call, _1, _3) }
+   ;
+
+FBody -> %left1 FBody plus  FBody { makeFBody(BinaryOp, '+', _1, _3) }
+   | %left1 FBody minus FBody { makeFBody(BinaryOp, '-', _1, _3) }
+   | %left2 FBody mul FBody { makeFBody(BinaryOp, '*', _1, _3) }
+   | %left2 FBody del FBody { makeFBody(BinaryOp, '/', _1, _3) }
+   | %right3 FBody pow FBody { makeFBody(BinaryOp,'^', _1, _3) }
+   | lparen FBody rparen { _2 }
+   | id { makeFBodyParam(Id, _1) }
+   | int { makeFBody(Literal, _1, "int") }
+   | float { makeFBody(Literal, _1, "float") }
+   | %non4 minus FBody { makeFBody(UnaryOp, '-', _2) }
+   | id lparen ArgsCall rparen { makeC(Call, _1, _3) }
    ;
 
 Args ->
       | Args1  { _1 }
    ;
 
-Args1 -> id doublep type comma Args1 { [Param,_1, _3] + _5 }
-      | id doublep type { [Param,_1, _3] }
+Args1 -> id doublep type comma Args1 { [makeFArgs(Param,_1, _3)] + _5 }
+      | id doublep type { [makeFArgs(Param,_1, _3)] }
       ;
 
 ArgsCall ->
