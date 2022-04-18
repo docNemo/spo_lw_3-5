@@ -60,7 +60,7 @@ Args1 -> id doublep type comma Args1 { [makeFArgs(Param,_1, _3)] + _5 }
       ;
 
 ArgsCallF ->
-      | Args1Call  { _1 }
+      | Args1CallF  { _1 }
    ;
 
 Args1CallF -> FBody comma Args1CallF { [_1] + _3 }

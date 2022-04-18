@@ -37,7 +37,16 @@
 Ё         Ё E -> E . pow E,comma/del/minus/mul/plus/pow/rparen                                      Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 4       Ё Args1Call -> E comma . Args1Call,rparen                                                 Ё
+Ё 4       Ё Args1CallF -> FBody .,rparen                                                            Ё
+Ё         Ё Args1CallF -> FBody . comma Args1CallF,rparen                                           Ё
+Ё         Ё FBody -> FBody . mul FBody,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё FBody -> FBody . plus FBody,comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё         Ё FBody -> FBody . minus FBody,comma/del/minus/mul/plus/pow/rparen                        Ё
+Ё         Ё FBody -> FBody . del FBody,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё FBody -> FBody . pow FBody,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё ---                                                                                     Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 5       Ё Args1Call -> E comma . Args1Call,rparen                                                 Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё Args1Call -> . E,rparen                                                                 Ё
 Ё         Ё Args1Call -> . E comma Args1Call,rparen                                                 Ё
@@ -55,36 +64,58 @@
 Ё         Ё E -> . let id assign E,comma/del/minus/mul/plus/pow/rparen                              Ё
 Ё         Ё E -> . id,comma/del/minus/mul/plus/pow/rparen                                           Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 5       Ё Args1Call -> E comma Args1Call .,rparen                                                 Ё
+Ё 6       Ё Args1Call -> E comma Args1Call .,rparen                                                 Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 6       Ё Args1 -> id doublep . type,rparen                                                       Ё
+Ё 7       Ё Args1CallF -> FBody comma . Args1CallF,rparen                                           Ё
+Ё         Ё ---                                                                                     Ё
+Ё         Ё Args1CallF -> . FBody,rparen                                                            Ё
+Ё         Ё Args1CallF -> . FBody comma Args1CallF,rparen                                           Ё
+Ё         Ё FBody -> . lparen FBody rparen,comma/del/minus/mul/plus/pow/rparen                      Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,comma/del/minus/mul/plus/pow/rparen               Ё
+Ё         Ё FBody -> . FBody mul FBody,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё FBody -> . FBody plus FBody,comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё         Ё FBody -> . FBody minus FBody,comma/del/minus/mul/plus/pow/rparen                        Ё
+Ё         Ё FBody -> . FBody del FBody,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё FBody -> . FBody pow FBody,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё FBody -> . float,comma/del/minus/mul/plus/pow/rparen                                    Ё
+Ё         Ё FBody -> . int,comma/del/minus/mul/plus/pow/rparen                                      Ё
+Ё         Ё FBody -> . minus FBody,comma/del/minus/mul/plus/pow/rparen                              Ё
+Ё         Ё FBody -> . id,comma/del/minus/mul/plus/pow/rparen                                       Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 8       Ё Args1CallF -> FBody comma Args1CallF .,rparen                                           Ё
+Ё         Ё ---                                                                                     Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 9       Ё Args1 -> id doublep . type,rparen                                                       Ё
 Ё         Ё Args1 -> id doublep . type comma Args1,rparen                                           Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 7       Ё Args1 -> id . doublep type,rparen                                                       Ё
+Ё 10      Ё Args1 -> id . doublep type,rparen                                                       Ё
 Ё         Ё Args1 -> id . doublep type comma Args1,rparen                                           Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 8       Ё Args1 -> id doublep type .,rparen                                                       Ё
+Ё 11      Ё Args1 -> id doublep type .,rparen                                                       Ё
 Ё         Ё Args1 -> id doublep type . comma Args1,rparen                                           Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 9       Ё Args1 -> id doublep type comma . Args1,rparen                                           Ё
+Ё 12      Ё Args1 -> id doublep type comma . Args1,rparen                                           Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё Args1 -> . id doublep type,rparen                                                       Ё
 Ё         Ё Args1 -> . id doublep type comma Args1,rparen                                           Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 10      Ё Args1 -> id doublep type comma Args1 .,rparen                                           Ё
+Ё 13      Ё Args1 -> id doublep type comma Args1 .,rparen                                           Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 11      Ё Args -> Args1 .,rparen                                                                  Ё
+Ё 14      Ё Args -> Args1 .,rparen                                                                  Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 12      Ё ArgsCall -> Args1Call .,rparen                                                          Ё
+Ё 15      Ё ArgsCall -> Args1Call .,rparen                                                          Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 13      Ё E -> lparen . E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё 16      Ё ArgsCallF -> Args1CallF .,rparen                                                        Ё
+Ё         Ё ---                                                                                     Ё
+цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
+Ё 17      Ё E -> lparen . E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё E -> . lparen E rparen,del/minus/mul/plus/pow/rparen                                    Ё
 Ё         Ё E -> . E mul E,del/minus/mul/plus/pow/rparen                                            Ё
@@ -100,10 +131,10 @@
 Ё         Ё E -> . let id assign E,del/minus/mul/plus/pow/rparen                                    Ё
 Ё         Ё E -> . id,del/minus/mul/plus/pow/rparen                                                 Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 14      Ё E -> lparen E rparen .,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё 18      Ё E -> lparen E rparen .,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 15      Ё E -> lparen E . rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё 19      Ё E -> lparen E . rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> E . mul E,del/minus/mul/plus/pow/rparen                                            Ё
 Ё         Ё E -> E . plus E,del/minus/mul/plus/pow/rparen                                           Ё
 Ё         Ё E -> E . minus E,del/minus/mul/plus/pow/rparen                                          Ё
@@ -111,10 +142,10 @@
 Ё         Ё E -> E . pow E,del/minus/mul/plus/pow/rparen                                            Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 16      Ё FBody -> lparen . FBody rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
+Ё 20      Ё FBody -> lparen . FBody rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё FBody -> . lparen FBody rparen,del/minus/mul/plus/pow/rparen                            Ё
-Ё         Ё FBody -> . id lparen ArgsCall rparen,del/minus/mul/plus/pow/rparen                      Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> . FBody mul FBody,del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё FBody -> . FBody plus FBody,del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё FBody -> . FBody minus FBody,del/minus/mul/plus/pow/rparen                              Ё
@@ -125,10 +156,10 @@
 Ё         Ё FBody -> . minus FBody,del/minus/mul/plus/pow/rparen                                    Ё
 Ё         Ё FBody -> . id,del/minus/mul/plus/pow/rparen                                             Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 17      Ё FBody -> lparen FBody rparen .,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
+Ё 21      Ё FBody -> lparen FBody rparen .,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 18      Ё FBody -> lparen FBody . rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
+Ё 22      Ё FBody -> lparen FBody . rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
 Ё         Ё FBody -> FBody . mul FBody,del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё FBody -> FBody . plus FBody,del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё FBody -> FBody . minus FBody,del/minus/mul/plus/pow/rparen                              Ё
@@ -136,7 +167,7 @@
 Ё         Ё FBody -> FBody . pow FBody,del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 19      Ё E -> E mul . E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 23      Ё E -> E mul . E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -152,7 +183,7 @@
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                      Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 20      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 24      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> E mul E .,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
@@ -160,7 +191,7 @@
 Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 21      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 25      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> E plus E .,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
@@ -168,7 +199,7 @@
 Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 22      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 26      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> E minus E .,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
@@ -176,7 +207,7 @@
 Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 23      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 27      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -184,7 +215,7 @@
 Ё         Ё E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 24      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 28      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -192,7 +223,7 @@
 Ё         Ё E -> E pow E .,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 25      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 29      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -200,7 +231,7 @@
 Ё         Ё E -> minus E .,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 26      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 30      Ё E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -208,7 +239,7 @@
 Ё         Ё E -> let id assign E .,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 27      Ё E -> E plus . E,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
+Ё 31      Ё E -> E plus . E,%eof/comma/del/minus/mul/plus/pow/rparen                                Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -224,7 +255,7 @@
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                      Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 28      Ё E -> E minus . E,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
+Ё 32      Ё E -> E minus . E,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -240,7 +271,7 @@
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                      Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 29      Ё E -> E del . E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 33      Ё E -> E del . E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -256,7 +287,7 @@
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                      Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 30      Ё E -> E pow . E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 34      Ё E -> E pow . E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -272,13 +303,13 @@
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                      Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 31      Ё E -> float .,%eof/comma/del/minus/mul/plus/pow/rparen                                   Ё
+Ё 35      Ё E -> float .,%eof/comma/del/minus/mul/plus/pow/rparen                                   Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 32      Ё E -> int .,%eof/comma/del/minus/mul/plus/pow/rparen                                     Ё
+Ё 36      Ё E -> int .,%eof/comma/del/minus/mul/plus/pow/rparen                                     Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 33      Ё E -> minus . E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 37      Ё E -> minus . E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -294,11 +325,11 @@
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                      Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 34      Ё E -> id . lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen               Ё
+Ё 38      Ё E -> id . lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen               Ё
 Ё         Ё E -> id .,%eof/comma/del/minus/mul/plus/pow/rparen                                      Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 35      Ё E -> id lparen . ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen               Ё
+Ё 39      Ё E -> id lparen . ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen               Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё ArgsCall -> .,rparen                                                                    Ё
 Ё         Ё Args1Call -> . E,rparen                                                                 Ё
@@ -318,46 +349,44 @@
 Ё         Ё E -> . let id assign E,comma/del/minus/mul/plus/pow/rparen                              Ё
 Ё         Ё E -> . id,comma/del/minus/mul/plus/pow/rparen                                           Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 36      Ё E -> id lparen ArgsCall rparen .,%eof/comma/del/minus/mul/plus/pow/rparen               Ё
+Ё 40      Ё E -> id lparen ArgsCall rparen .,%eof/comma/del/minus/mul/plus/pow/rparen               Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 37      Ё E -> id lparen ArgsCall . rparen,%eof/comma/del/minus/mul/plus/pow/rparen               Ё
+Ё 41      Ё E -> id lparen ArgsCall . rparen,%eof/comma/del/minus/mul/plus/pow/rparen               Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 38      Ё FBody -> id . lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё 42      Ё FBody -> id . lparen ArgsCallF rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё FBody -> id .,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 39      Ё FBody -> id lparen . ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё 43      Ё FBody -> id lparen . ArgsCallF rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё ---                                                                                     Ё
-Ё         Ё ArgsCall -> .,rparen                                                                    Ё
-Ё         Ё Args1Call -> . E,rparen                                                                 Ё
-Ё         Ё Args1Call -> . E comma Args1Call,rparen                                                 Ё
-Ё         Ё ArgsCall -> . Args1Call,rparen                                                          Ё
-Ё         Ё E -> . lparen E rparen,comma/del/minus/mul/plus/pow/rparen                              Ё
-Ё         Ё E -> . E mul E,comma/del/minus/mul/plus/pow/rparen                                      Ё
-Ё         Ё E -> . E plus E,comma/del/minus/mul/plus/pow/rparen                                     Ё
-Ё         Ё E -> . E minus E,comma/del/minus/mul/plus/pow/rparen                                    Ё
-Ё         Ё E -> . E del E,comma/del/minus/mul/plus/pow/rparen                                      Ё
-Ё         Ё E -> . E pow E,comma/del/minus/mul/plus/pow/rparen                                      Ё
-Ё         Ё E -> . float,comma/del/minus/mul/plus/pow/rparen                                        Ё
-Ё         Ё E -> . int,comma/del/minus/mul/plus/pow/rparen                                          Ё
-Ё         Ё E -> . minus E,comma/del/minus/mul/plus/pow/rparen                                      Ё
-Ё         Ё E -> . id lparen ArgsCall rparen,comma/del/minus/mul/plus/pow/rparen                    Ё
-Ё         Ё E -> . func id lparen Args rparen assign FBody,comma/del/minus/mul/plus/pow/rparen      Ё
-Ё         Ё E -> . let id assign E,comma/del/minus/mul/plus/pow/rparen                              Ё
-Ё         Ё E -> . id,comma/del/minus/mul/plus/pow/rparen                                           Ё
+Ё         Ё ArgsCallF -> .,rparen                                                                   Ё
+Ё         Ё Args1CallF -> . FBody,rparen                                                            Ё
+Ё         Ё Args1CallF -> . FBody comma Args1CallF,rparen                                           Ё
+Ё         Ё ArgsCallF -> . Args1CallF,rparen                                                        Ё
+Ё         Ё FBody -> . lparen FBody rparen,comma/del/minus/mul/plus/pow/rparen                      Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,comma/del/minus/mul/plus/pow/rparen               Ё
+Ё         Ё FBody -> . FBody mul FBody,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё FBody -> . FBody plus FBody,comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё         Ё FBody -> . FBody minus FBody,comma/del/minus/mul/plus/pow/rparen                        Ё
+Ё         Ё FBody -> . FBody del FBody,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё FBody -> . FBody pow FBody,comma/del/minus/mul/plus/pow/rparen                          Ё
+Ё         Ё FBody -> . float,comma/del/minus/mul/plus/pow/rparen                                    Ё
+Ё         Ё FBody -> . int,comma/del/minus/mul/plus/pow/rparen                                      Ё
+Ё         Ё FBody -> . minus FBody,comma/del/minus/mul/plus/pow/rparen                              Ё
+Ё         Ё FBody -> . id,comma/del/minus/mul/plus/pow/rparen                                       Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 40      Ё FBody -> id lparen ArgsCall rparen .,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё 44      Ё FBody -> id lparen ArgsCallF rparen .,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 41      Ё FBody -> id lparen ArgsCall . rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё 45      Ё FBody -> id lparen ArgsCallF . rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 42      Ё E -> func id lparen Args rparen assign . FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 46      Ё E -> func id lparen Args rparen assign . FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё FBody -> . lparen FBody rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
-Ё         Ё FBody -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё FBody -> . FBody mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> . FBody plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> . FBody minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -368,26 +397,26 @@
 Ё         Ё FBody -> . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё FBody -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 43      Ё E -> func . id lparen Args rparen assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 47      Ё E -> func . id lparen Args rparen assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 44      Ё E -> func id . lparen Args rparen assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 48      Ё E -> func id . lparen Args rparen assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 45      Ё E -> func id lparen . Args rparen assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 49      Ё E -> func id lparen . Args rparen assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё Args -> .,rparen                                                                        Ё
 Ё         Ё Args1 -> . id doublep type,rparen                                                       Ё
 Ё         Ё Args1 -> . id doublep type comma Args1,rparen                                           Ё
 Ё         Ё Args -> . Args1,rparen                                                                  Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 46      Ё E -> func id lparen Args rparen . assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 50      Ё E -> func id lparen Args rparen . assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 47      Ё E -> func id lparen Args . rparen assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 51      Ё E -> func id lparen Args . rparen assign FBody,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 48      Ё E -> func id lparen Args rparen assign FBody .,%eof/comma/del/minus/mul/plus/pow/rparen Ё
+Ё 52      Ё E -> func id lparen Args rparen assign FBody .,%eof/comma/del/minus/mul/plus/pow/rparen Ё
 Ё         Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> FBody . plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> FBody . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -395,10 +424,10 @@
 Ё         Ё FBody -> FBody . pow FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 49      Ё FBody -> FBody mul . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 53      Ё FBody -> FBody mul . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё FBody -> . lparen FBody rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
-Ё         Ё FBody -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё FBody -> . FBody mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> . FBody plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> . FBody minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -409,7 +438,7 @@
 Ё         Ё FBody -> . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё FBody -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 50      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 54      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> FBody mul FBody .,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> FBody . plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> FBody . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -417,7 +446,7 @@
 Ё         Ё FBody -> FBody . pow FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 51      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 55      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> FBody . plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> FBody plus FBody .,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> FBody . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -425,7 +454,7 @@
 Ё         Ё FBody -> FBody . pow FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 52      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 56      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> FBody . plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> FBody . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
 Ё         Ё FBody -> FBody minus FBody .,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -433,7 +462,7 @@
 Ё         Ё FBody -> FBody . pow FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 53      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 57      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> FBody . plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> FBody . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
 Ё         Ё FBody -> FBody . del FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
@@ -441,7 +470,7 @@
 Ё         Ё FBody -> FBody . pow FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 54      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 58      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> FBody . plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> FBody . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
 Ё         Ё FBody -> FBody . del FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
@@ -449,7 +478,7 @@
 Ё         Ё FBody -> FBody pow FBody .,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 55      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 59      Ё FBody -> FBody . mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> FBody . plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> FBody . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
 Ё         Ё FBody -> FBody . del FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
@@ -457,10 +486,10 @@
 Ё         Ё FBody -> minus FBody .,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 56      Ё FBody -> FBody plus . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
+Ё 60      Ё FBody -> FBody plus . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё FBody -> . lparen FBody rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
-Ё         Ё FBody -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё FBody -> . FBody mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> . FBody plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> . FBody minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -471,10 +500,10 @@
 Ё         Ё FBody -> . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё FBody -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 57      Ё FBody -> FBody minus . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
+Ё 61      Ё FBody -> FBody minus . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё FBody -> . lparen FBody rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
-Ё         Ё FBody -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё FBody -> . FBody mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> . FBody plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> . FBody minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -485,10 +514,10 @@
 Ё         Ё FBody -> . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё FBody -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 58      Ё FBody -> FBody del . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 62      Ё FBody -> FBody del . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё FBody -> . lparen FBody rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
-Ё         Ё FBody -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё FBody -> . FBody mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> . FBody plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> . FBody minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -499,10 +528,10 @@
 Ё         Ё FBody -> . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё FBody -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 59      Ё FBody -> FBody pow . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
+Ё 63      Ё FBody -> FBody pow . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё FBody -> . lparen FBody rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
-Ё         Ё FBody -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё FBody -> . FBody mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> . FBody plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> . FBody minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -513,16 +542,16 @@
 Ё         Ё FBody -> . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё FBody -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 60      Ё FBody -> float .,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
+Ё 64      Ё FBody -> float .,%eof/comma/del/minus/mul/plus/pow/rparen                               Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 61      Ё FBody -> int .,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
+Ё 65      Ё FBody -> int .,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 62      Ё FBody -> minus . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё 66      Ё FBody -> minus . FBody,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё FBody -> . lparen FBody rparen,%eof/comma/del/minus/mul/plus/pow/rparen                 Ё
-Ё         Ё FBody -> . id lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen           Ё
+Ё         Ё FBody -> . id lparen ArgsCallF rparen,%eof/comma/del/minus/mul/plus/pow/rparen          Ё
 Ё         Ё FBody -> . FBody mul FBody,%eof/comma/del/minus/mul/plus/pow/rparen                     Ё
 Ё         Ё FBody -> . FBody plus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                    Ё
 Ё         Ё FBody -> . FBody minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                   Ё
@@ -533,7 +562,7 @@
 Ё         Ё FBody -> . minus FBody,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё FBody -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                  Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 63      Ё E -> let id assign . E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё 67      Ё E -> let id assign . E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё ---                                                                                     Ё
 Ё         Ё E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen                                 Ё
@@ -549,144 +578,152 @@
 Ё         Ё E -> . let id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen                                      Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 64      Ё E -> let id . assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё 68      Ё E -> let id . assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё ---                                                                                     Ё
 цдддддддддеддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддд╢
-Ё 65      Ё E -> let . id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
+Ё 69      Ё E -> let . id assign E,%eof/comma/del/minus/mul/plus/pow/rparen                         Ё
 Ё         Ё ---                                                                                     Ё
 юдддддддддаддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддддды
-зддддбддддддбддддддддбдддддддбдддддбдддддддддбдддддддбддддддбддддбдддддбдддддбддддддддбдддддддбдддддбддддддбдддддбддддддддбддддддбддддддбдддддддбдддддддддддбддддддддддбддддбддддддд©
-Ё    Ё %eof Ё assign Ё comma Ё del Ё doublep Ё float Ё func Ё id Ё int Ё let Ё lparen Ё minus Ё mul Ё plus Ё pow Ё rparen Ё type Ё Args Ё Args1 Ё Args1Call Ё ArgsCall Ё E  Ё FBody Ё
-фммммьммммммьммммммммьмммммммьмммммьмммммммммьмммммммьммммммьммммьмммммьмммммьммммммммьмммммммьмммммьммммммьмммммьммммммммьммммммьммммммьмммммммьмммммммммммьммммммммммьммммьммммммм╣
-Ё 0  Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 2  Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 1  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 2  Ё 1    Ё        Ё       Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 3  Ё      Ё        Ё 4     Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 4  Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё 5         Ё          Ё 3  Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 5  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 6  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё 8    Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 7  Ё      Ё        Ё       Ё     Ё 6       Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 8  Ё      Ё        Ё 9     Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 9  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 7  Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё 10    Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 10 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 11 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 12 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 13 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 15 Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 14 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 15 Ё      Ё        Ё       Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё 14     Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 16 Ё      Ё        Ё       Ё     Ё         Ё 60    Ё      Ё 38 Ё 61  Ё     Ё 16     Ё 62    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё 18    Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 17 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 18 Ё      Ё        Ё       Ё 58  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 57    Ё 49  Ё 56   Ё 59  Ё 17     Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 19 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 20 Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 20 Ё      Ё        Ё       Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 21 Ё      Ё        Ё       Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 22 Ё      Ё        Ё       Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 23 Ё      Ё        Ё       Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 24 Ё      Ё        Ё       Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 25 Ё      Ё        Ё       Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 26 Ё      Ё        Ё       Ё 29  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 28    Ё 19  Ё 27   Ё 30  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 27 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 21 Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 28 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 22 Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 29 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 23 Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 30 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 24 Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 31 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 32 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 33 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 25 Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 34 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё 35     Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 35 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё 12        Ё 37       Ё 3  Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 36 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 37 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё 36     Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 38 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё 39     Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 39 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё 12        Ё 41       Ё 3  Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 40 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 41 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё 40     Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 42 Ё      Ё        Ё       Ё     Ё         Ё 60    Ё      Ё 38 Ё 61  Ё     Ё 16     Ё 62    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё 48    Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 43 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 44 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 44 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё 45     Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 45 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 7  Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё 47   Ё 11    Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 46 Ё      Ё 42     Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 47 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё 46     Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 48 Ё      Ё        Ё       Ё 58  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 57    Ё 49  Ё 56   Ё 59  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 49 Ё      Ё        Ё       Ё     Ё         Ё 60    Ё      Ё 38 Ё 61  Ё     Ё 16     Ё 62    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё 50    Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 50 Ё      Ё        Ё       Ё 58  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 57    Ё 49  Ё 56   Ё 59  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 51 Ё      Ё        Ё       Ё 58  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 57    Ё 49  Ё 56   Ё 59  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 52 Ё      Ё        Ё       Ё 58  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 57    Ё 49  Ё 56   Ё 59  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 53 Ё      Ё        Ё       Ё 58  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 57    Ё 49  Ё 56   Ё 59  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 54 Ё      Ё        Ё       Ё 58  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 57    Ё 49  Ё 56   Ё 59  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 55 Ё      Ё        Ё       Ё 58  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 57    Ё 49  Ё 56   Ё 59  Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 56 Ё      Ё        Ё       Ё     Ё         Ё 60    Ё      Ё 38 Ё 61  Ё     Ё 16     Ё 62    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё 51    Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 57 Ё      Ё        Ё       Ё     Ё         Ё 60    Ё      Ё 38 Ё 61  Ё     Ё 16     Ё 62    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё 52    Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 58 Ё      Ё        Ё       Ё     Ё         Ё 60    Ё      Ё 38 Ё 61  Ё     Ё 16     Ё 62    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё 53    Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 59 Ё      Ё        Ё       Ё     Ё         Ё 60    Ё      Ё 38 Ё 61  Ё     Ё 16     Ё 62    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё 54    Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 60 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 61 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 62 Ё      Ё        Ё       Ё     Ё         Ё 60    Ё      Ё 38 Ё 61  Ё     Ё 16     Ё 62    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё 55    Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 63 Ё      Ё        Ё       Ё     Ё         Ё 31    Ё 43   Ё 34 Ё 32  Ё 65  Ё 13     Ё 33    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё 26 Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 64 Ё      Ё 63     Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддеддддеддддддд╢
-Ё 65 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 64 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё          Ё    Ё       Ё
-юддддаддддддаддддддддадддддддадддддадддддддддадддддддаддддддаддддадддддадддддаддддддддадддддддадддддаддддддадддддаддддддддаддддддаддддддадддддддадддддддддддаддддддддддаддддаддддддды
+зддддбддддддбддддддддбдддддддбдддддбдддддддддбдддддддбддддддбддддбдддддбдддддбддддддддбдддддддбдддддбддддддбдддддбддддддддбддддддбддддддбдддддддбдддддддддддбддддддддддддбддддддддддбдддддддддддбддддбддддддд©
+Ё    Ё %eof Ё assign Ё comma Ё del Ё doublep Ё float Ё func Ё id Ё int Ё let Ё lparen Ё minus Ё mul Ё plus Ё pow Ё rparen Ё type Ё Args Ё Args1 Ё Args1Call Ё Args1CallF Ё ArgsCall Ё ArgsCallF Ё E  Ё FBody Ё
+фммммьммммммьммммммммьмммммммьмммммьмммммммммьмммммммьммммммьммммьмммммьмммммьммммммммьмммммммьмммммьммммммьмммммьммммммммьммммммьммммммьмммммммьмммммммммммьммммммммммммьммммммммммьмммммммммммьммммьммммммм╣
+Ё 0  Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё 2  Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 1  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 2  Ё 1    Ё        Ё       Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 3  Ё      Ё        Ё 5     Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 4  Ё      Ё        Ё 7     Ё 62  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 61    Ё 53  Ё 60   Ё 63  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 5  Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё 6         Ё            Ё          Ё           Ё 3  Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 6  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 7  Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё 8          Ё          Ё           Ё    Ё 4     Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 8  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 9  Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё 11   Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 10 Ё      Ё        Ё       Ё     Ё 9       Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 11 Ё      Ё        Ё 12    Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 12 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 10 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё 13    Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 13 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 14 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 15 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 16 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 17 Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё 19 Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 18 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 19 Ё      Ё        Ё       Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё 18     Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 20 Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё 22    Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 21 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 22 Ё      Ё        Ё       Ё 62  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 61    Ё 53  Ё 60   Ё 63  Ё 21     Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 23 Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё 24 Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 24 Ё      Ё        Ё       Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 25 Ё      Ё        Ё       Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 26 Ё      Ё        Ё       Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 27 Ё      Ё        Ё       Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 28 Ё      Ё        Ё       Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 29 Ё      Ё        Ё       Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 30 Ё      Ё        Ё       Ё 33  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 32    Ё 23  Ё 31   Ё 34  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 31 Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё 25 Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 32 Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё 26 Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 33 Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё 27 Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 34 Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё 28 Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 35 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 36 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 37 Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё 29 Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 38 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё 39     Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 39 Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё 15        Ё            Ё 41       Ё           Ё 3  Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 40 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 41 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё 40     Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 42 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё 43     Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 43 Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё 16         Ё          Ё 45        Ё    Ё 4     Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 44 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 45 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё 44     Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 46 Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё 52    Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 47 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 48 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 48 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё 49     Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 49 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 10 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё 51   Ё 14    Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 50 Ё      Ё 46     Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 51 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё 50     Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 52 Ё      Ё        Ё       Ё 62  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 61    Ё 53  Ё 60   Ё 63  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 53 Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё 54    Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 54 Ё      Ё        Ё       Ё 62  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 61    Ё 53  Ё 60   Ё 63  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 55 Ё      Ё        Ё       Ё 62  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 61    Ё 53  Ё 60   Ё 63  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 56 Ё      Ё        Ё       Ё 62  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 61    Ё 53  Ё 60   Ё 63  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 57 Ё      Ё        Ё       Ё 62  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 61    Ё 53  Ё 60   Ё 63  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 58 Ё      Ё        Ё       Ё 62  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 61    Ё 53  Ё 60   Ё 63  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 59 Ё      Ё        Ё       Ё 62  Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё 61    Ё 53  Ё 60   Ё 63  Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 60 Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё 55    Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 61 Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё 56    Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 62 Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё 57    Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 63 Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё 58    Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 64 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 65 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 66 Ё      Ё        Ё       Ё     Ё         Ё 64    Ё      Ё 42 Ё 65  Ё     Ё 20     Ё 66    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё 59    Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 67 Ё      Ё        Ё       Ё     Ё         Ё 35    Ё 47   Ё 38 Ё 36  Ё 69  Ё 17     Ё 37    Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё 30 Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 68 Ё      Ё 67     Ё       Ё     Ё         Ё       Ё      Ё    Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+цддддеддддддеддддддддедддддддедддддедддддддддедддддддеддддддеддддедддддедддддеддддддддедддддддедддддеддддддедддддеддддддддеддддддеддддддедддддддедддддддддддеддддддддддддеддддддддддедддддддддддеддддеддддддд╢
+Ё 69 Ё      Ё        Ё       Ё     Ё         Ё       Ё      Ё 68 Ё     Ё     Ё        Ё       Ё     Ё      Ё     Ё        Ё      Ё      Ё       Ё           Ё            Ё          Ё           Ё    Ё       Ё
+юддддаддддддаддддддддадддддддадддддадддддддддадддддддаддддддаддддадддддадддддаддддддддадддддддадддддаддддддадддддаддддддддаддддддаддддддадддддддадддддддддддаддддддддддддаддддддддддадддддддддддаддддаддддддды

@@ -55,12 +55,11 @@ class Call:
         self.Value = tok
         self.Args = args
     def __repr__(self):
-        return f"({self.Value}, {self.Args})"
+        return f"({self.Value}, {self.Args}, {functions.get(self.Value).Expr} )"
     
     def type(self):
         argsType = [x.type() for x in self.Args]
         func = functions.get(self.Value)
-        # funcType = [x.type() for x in func.Args]
         
         for a, f in zip(argsType, func.Args):
             if (f.type() == "int") and (a == "float"):
