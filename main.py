@@ -8,7 +8,7 @@ input = ''' func f(a1:int) = a1 * a1
             let a2 = 3.0
             let a3 = 4
             let a4 = 4 + 4
-            ads(a1, a2, a3)'''
+            f(a4) ^ ads(a1, a2, a3)'''
 
 for b in input.split('\n'):
     lexer = Lexer(b)
