@@ -8,8 +8,7 @@ input = ''' let a1 = 3 * 4.0;
             f1(a1) * f(a2);
             a1 + 4;
             a2 + 4 ^ f1(a2);
-            f(2);
-            a2'''
+            f(2)'''
 
 lexer = Lexer(input)
 parser = Parser(lexer)
