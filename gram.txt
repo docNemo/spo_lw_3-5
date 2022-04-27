@@ -12,8 +12,9 @@ rparen /\)/
 comma /,/
 assign /=/
 doublep /:/
+semicol /;/
 type /int|float/ {text}
-/ +/
+/[ \n\t]+/
 id /[a-z_][a-z_0-9]*/ {text}
 
 %%
@@ -22,6 +23,19 @@ id /[a-z_][a-z_0-9]*/ {text}
 from classes import *
 }
 
+SS -> S semicol SS { [_1] + _3 }
+   | S { [_1] } ;
+
+S -> E {_1}
+   | D {_1}
+   | A {_1}
+   ;
+
+D -> %non0 func id lparen Args rparen assign E { makeF(_2, _4, _7) }
+   ;
+   
+A -> %right0 let id assign E { makeId(Assign, _2, _4) }
+   ;
 
 E -> %left1 E plus  E { make(BinaryOp, '+', _1, _3) }
    | %left1 E minus E { make(BinaryOp, '-', _1, _3) }
@@ -29,42 +43,19 @@ E -> %left1 E plus  E { make(BinaryOp, '+', _1, _3) }
    | %left2 E del E { make(BinaryOp, '/', _1, _3) }
    | %right3 E pow E { make(BinaryOp,'^', _1, _3) }
    | lparen E rparen { _2 }
-   | id { makeId(Id, _1) }
-   | int { make(Literal, _1, "int") }
-   | float { make(Literal, _1, "float") }
-   | %non4 minus E { make(UnaryOp, '-', _2) }	
-   | %right0 let id assign E { makeId(Assign, _2, _4) }
-   | %non0 func id lparen Args rparen assign FBody { makeF(_2, _4, _7) }
+   | id { Id(_1) }
+   | int { make(Int, _1) }
+   | float { make(Float, _1) }
+   | %non4 minus E { make(UnaryOp, '-', _2) }   
    | id lparen ArgsCall rparen { makeC(Call, _1, _3) }
-   ;
-
-FBody -> %left1 FBody plus  FBody { makeFBody(BinaryOp, '+', _1, _3) }
-   | %left1 FBody minus FBody { makeFBody(BinaryOp, '-', _1, _3) }
-   | %left2 FBody mul FBody { makeFBody(BinaryOp, '*', _1, _3) }
-   | %left2 FBody del FBody { makeFBody(BinaryOp, '/', _1, _3) }
-   | %right3 FBody pow FBody { makeFBody(BinaryOp,'^', _1, _3) }
-   | lparen FBody rparen { _2 }
-   | id { makeFBodyParam(Id, _1) }
-   | int { makeFBody(Literal, _1, "int") }
-   | float { makeFBody(Literal, _1, "float") }
-   | %non4 minus FBody { makeFBody(UnaryOp, '-', _2) }
-   | id lparen ArgsCallF rparen { makeC(Call, _1, _3) }
    ;
 
 Args ->
       | Args1  { _1 }
    ;
 
-Args1 -> id doublep type comma Args1 { [makeFArgs(Param,_1, _3)] + _5 }
-      | id doublep type { [makeFArgs(Param,_1, _3)] }
-      ;
-
-ArgsCallF ->
-      | Args1CallF  { _1 }
-   ;
-
-Args1CallF -> FBody comma Args1CallF { [_1] + _3 }
-      | FBody { [_1] }
+Args1 -> id doublep type comma Args1 { [Param(_1, _3)] + _5 }
+      | id doublep type { [Param(_1, _3)] }
       ;
 
 ArgsCall ->

@@ -1,19 +1,23 @@
-from posixpath import split
 from parser import *
 from lexer import *
 
-input = ''' func f(a1:int) = a1 * a1
-            func ads(a1:float, a2:float, a3:int) = a1 + f(a2) * a3
-            let a1 = 3.0
-            let a2 = 3.0
-            let a3 = 4
-            let a4 = 4 + 4
-            f(a4) ^ ads(a1, a2, a3)'''
+input = ''' let a1 = 3 * 4.0;
+            func f(a1:int) = a1 * a1;
+            let a2 = 4 * 3;
+            func f1(a2:float) = a2 + f(1);
+            f1(a1) * f(a2);
+            a1 + 4;
+            a2 + 4 ^ f1(a2);
+            f(2);
+            a2'''
 
-for b in input.split('\n'):
-    lexer = Lexer(b)
-    parser = Parser(lexer)
-    tree = parser.parse()
+lexer = Lexer(input)
+parser = Parser(lexer)
+trees = parser.parse()
 
-print(tree)
-print(tree.type())
+print(trees)
+for tree in trees:
+    if (not isinstance(tree, Function)) and (not isinstance(tree, Assign)):
+        print("\n###################################\n")
+        print(tree)
+        print(tree.type())

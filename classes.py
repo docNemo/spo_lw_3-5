@@ -1,7 +1,35 @@
+import copy
+
+
+functions = {}
+objects = {}
+
 class Literal:
     def __init__(self, tok, type):
         self.Value = tok
         self.Type = type
+
+    def __repr__(self):
+        return f"({self.Value}, {self.Type})"
+
+    def type(self):
+        return self.Type
+
+class Int:
+    def __init__(self, tok):
+        self.Value = tok
+        self.Type = "int"
+
+    def __repr__(self):
+        return f"({self.Value}, {self.Type})"
+
+    def type(self):
+        return self.Type
+
+class Float:
+    def __init__(self, tok):
+        self.Value = tok
+        self.Type = "float"
 
     def __repr__(self):
         return f"({self.Value}, {self.Type})"
@@ -14,6 +42,10 @@ class Id:
         self.Value = tok
     def __repr__(self):
         return f"{self.Value}"
+    def type(self):
+        t = objects.get(self.Value)
+        return t.type()
+
 
 class Param:
     def __init__(self, tok, type):
@@ -55,7 +87,7 @@ class Call:
         self.Value = tok
         self.Args = args
     def __repr__(self):
-        return f"({self.Value}, {self.Args}, {functions.get(self.Value).Expr} )"
+        return f"({self.Value}, {self.Args})"
     
     def type(self):
         argsType = [x.type() for x in self.Args]
@@ -65,7 +97,18 @@ class Call:
             if (f.type() == "int") and (a == "float"):
                 exit(f"Встречен float, когда ожидался int аргумента {f.Value} функции {self.Value}")
         
-        return func.Expr.type()
+        global objects
+        bufObject = copy.deepcopy(objects)
+        objects.clear()
+
+        for f in func.Args:
+            objects[f.Value] = Param(f.Value, f.Type)
+
+        retType = func.Expr.type()
+
+        objects = copy.deepcopy(bufObject)
+        bufObject.clear()
+        return retType
          
 
 class Assign:
@@ -86,12 +129,10 @@ class Function:
     def __repr__(self):
         return f"({self.Value}, {self.Args}, {self.Expr})"
     def type(self):
+        
         return self.Expr.type() 
 
 
-functions = {}
-functionArgs = {}
-objects = {}
 
 def make(f, *args):
         t = objects.get((f, *args))
@@ -101,54 +142,25 @@ def make(f, *args):
         return t
 
 def makeId(f, name, *args):
+        t = f(name, *args)
+        objects[name] = t
+        return t
+
+def useId(f, name, *args):
         t = objects.get(name)
         if t is None:
-            t = f(name, *args)
-            objects[name] = t
-        return t
+            exit(f"Неопределенный идентифкатор {name}")
+        return f(name, t.type())
 
 def makeF(f, args, expr):
         t = functions.get(f)
         if t is None:
             functions[f] = Function(f, args, expr)
-        
-        functionArgs.clear()
         return Function(f, args, expr)
-
-def makeFArgs(f,name, *args):
-        t = functionArgs.get(name)
-        if t is None:
-            t = f(name, *args)
-            functionArgs[name] = t
-        else:
-            exit(f"Повторяющийся аргумент функции {name}")
-        return t
-
-def makeFBody(f, *args):
-        t = functionArgs.get((f, *args))
-        if t is  None:
-            t = f(*args)
-            functionArgs[(f, *args)] = t
-        return t
-
-def makeFBodyParam(f,name):
-        t = functionArgs.get(name)
-        if t is  None:
-            exit(f"Неопределенный идентифкатор {f}")
-        return t
-
-def beginArgs(t):
-    functionArgs.clear()
-    return t
 
 def makeC(f, name, args):
         t = functions.get(name)
         if t is None:
             exit(f"Неизвестная функция {f}")
         return f(name, args)
-
-
-
-
-
 
