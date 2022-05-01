@@ -112,6 +112,9 @@ class Call:
         if not isinstance(func, FunctionType):
             raise Exception(f"Expected function, got {func}")
 
+        if len(argsType) != len(func.args):
+            raise Exception(f"Expected {len(func.args)} arguments, but got {len(argsType)}")
+
         if not all(x.coercible(y) for x, y in zip(argsType, func.args)):
             raise Exception(f"Non-coercible types {argsType}, {func.args}")
 
