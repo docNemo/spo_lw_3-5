@@ -1,40 +1,52 @@
 import copy
 
+objects={}
 
-functions = {}
-objects = {}
-
-class Literal:
-    def __init__(self, tok, type):
-        self.Value = tok
-        self.Type = type
-
+class IntType:
     def __repr__(self):
-        return f"({self.Value}, {self.Type})"
+        return "int"
+    def coercible(self, other):
+        return isinstance(other, FloatType) or isinstance(other, IntType)
 
-    def type(self):
-        return self.Type
+class FloatType:
+    def __repr__(self):
+        return "float"
+    def coercible(self, other):
+        return isinstance(other, FloatType)
+
+class FunctionType:
+    def __init__(self, args, result):
+        self.args = args
+        self.result = result
+    def __repr__(self):
+        args = ','.join(repr(x) for x in self.args)
+        return f"({args}) -> {self.result}"
+    def coercible(self, other):
+        if isinstance(other, FunctionType):
+            return all(y.coercible(x) for x, y in zip(self.args, other.args)) and self.result.coercible(other.result)
+        else:
+            return False
 
 class Int:
     def __init__(self, tok):
         self.Value = tok
-        self.Type = "int"
+        self.Type = IntType()
 
     def __repr__(self):
         return f"({self.Value}, {self.Type})"
 
-    def type(self):
+    def type(self, context):
         return self.Type
 
 class Float:
     def __init__(self, tok):
         self.Value = tok
-        self.Type = "float"
+        self.Type = FloatType()
 
     def __repr__(self):
         return f"({self.Value}, {self.Type})"
 
-    def type(self):
+    def type(self, context):
         return self.Type
 
 class Id:
@@ -42,9 +54,11 @@ class Id:
         self.Value = tok
     def __repr__(self):
         return f"{self.Value}"
-    def type(self):
-        t = objects.get(self.Value)
-        return t.type()
+    def type(self, context):
+        t = context.get(self.Value)
+        if t is None:
+            raise Exception(f"Unknown variable {self.Value}")
+        return t
 
 
 class Param:
@@ -55,7 +69,7 @@ class Param:
     def __repr__(self):
         return f"({self.Value}, {self.Type})"
 
-    def type(self):
+    def type(self, context):
         return self.Type
 
 class UnaryOp:
@@ -64,8 +78,8 @@ class UnaryOp:
         self.Branch = branch
     def __repr__(self):
         return f"({self.Value}, {self.Branch})"
-    def type(self):
-        return self.Branch.type()
+    def type(self, context):
+        return self.Branch.type(context)
 
 class BinaryOp:
     def __init__(self, tok, branchl, branchr):
@@ -76,11 +90,13 @@ class BinaryOp:
     def __repr__(self):
         return f"({self.Value}, {self.BranchL}, {self.BranchR})"
 
-    def type(self):
-        if (self.BranchL.type() == "float" or self.BranchR.type() == "float"):
-            return "float"
+    def type(self, context):
+        if (self.BranchL.type(context).coercible(self.BranchR.type(context))):
+            return self.BranchR.type(context)
+        elif (self.BranchR.type(context).coercible(self.BranchL.type(context))):
+            return self.BranchR.type(context)
         else:
-            return "int"
+            raise Exception(f"Non-coercible types for binop {self.Value}: {self.BranchL.type(context)} and {self.BranchR.type(context)}")
 
 class Call:
     def __init__(self, tok, args):
@@ -88,28 +104,19 @@ class Call:
         self.Args = args
     def __repr__(self):
         return f"({self.Value}, {self.Args})"
-    
-    def type(self):
-        argsType = [x.type() for x in self.Args]
-        func = functions.get(self.Value)
-        
-        for a, f in zip(argsType, func.Args):
-            if (f.type() == "int") and (a == "float"):
-                exit(f"Встречен float, когда ожидался int аргумента {f.Value} функции {self.Value}")
-        
-        global objects
-        bufObject = copy.deepcopy(objects)
-        objects.clear()
 
-        for f in func.Args:
-            objects[f.Value] = Param(f.Value, f.Type)
+    def type(self, context):
+        argsType = [x.type(context) for x in self.Args]
+        func = context.get(self.Value)
 
-        retType = func.Expr.type()
+        if not isinstance(func, FunctionType):
+            raise Exception(f"Expected function, got {func}")
 
-        objects = copy.deepcopy(bufObject)
-        bufObject.clear()
-        return retType
-         
+        if not all(x.coercible(y) for x, y in zip(argsType, func.args)):
+            raise Exception(f"Non-coercible types {argsType}, {func.args}")
+
+        return func.result
+
 
 class Assign:
     def __init__(self, tok, expr):
@@ -118,8 +125,8 @@ class Assign:
     def __repr__(self):
         return f"({self.Value}, {self.Expr})"
 
-    def type(self):
-        return self.Expr.type()
+    def type(self, context):
+        return self.Expr.type(context)
 
 class Function:
     def __init__(self, tok, args, expr):
@@ -128,39 +135,18 @@ class Function:
         self.Expr = expr
     def __repr__(self):
         return f"({self.Value}, {self.Args}, {self.Expr})"
-    def type(self):
-        
-        return self.Expr.type() 
-
-
+    def type(self, context):
+        localContext = dict(**context)
+        localContext.update({ f.Value: f.Type for f in self.Args })
+        return FunctionType([arg.Type for arg in self.Args], self.Expr.type(localContext))
 
 def make(f, *args):
-        t = objects.get((f, *args))
-        if t is  None:
-            t = f(*args)
-            objects[(f, *args)] = t
-        return t
+    t = objects.get((f, *args))
+    if t is  None:
+        t = f(*args)
+        objects[(f, *args)] = t
+    return t
 
-def makeId(f, name, *args):
-        t = f(name, *args)
-        objects[name] = t
-        return t
-
-def useId(f, name, *args):
-        t = objects.get(name)
-        if t is None:
-            exit(f"Неопределенный идентифкатор {name}")
-        return f(name, t.type())
-
-def makeF(f, args, expr):
-        t = functions.get(f)
-        if t is None:
-            functions[f] = Function(f, args, expr)
-        return Function(f, args, expr)
-
-def makeC(f, name, args):
-        t = functions.get(name)
-        if t is None:
-            exit(f"Неизвестная функция {f}")
-        return f(name, args)
-
+def clearObjects(arg):
+    objects.clear()
+    return arg
