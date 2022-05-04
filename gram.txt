@@ -13,7 +13,9 @@ comma /,/
 assign /=/
 doublep /:/
 semicol /;/
-type /int|float/ {text}
+typeInt /int/
+typeFloat /float/
+typeFun /\->/
 /[ \n\t]+/
 id /[a-z_][a-z_0-9]*/ {text}
 
@@ -23,18 +25,18 @@ id /[a-z_][a-z_0-9]*/ {text}
 from classes import *
 }
 
-SS -> S semicol SS { [_1] + _3 }
+SS -> S semicol SS { [_1, *_3] }
    | S { [_1] } ;
 
-S -> E {_1}
-   | D {_1}
-   | A {_1}
+S -> E { clearObjects(_1) }
+   | D { clearObjects(_1) }
+   | A { clearObjects(_1) }
    ;
 
-D -> %non0 func id lparen Args rparen assign E { makeF(_2, _4, _7) }
+D -> %non0 func id lparen Args rparen assign E { Function(_2, _4, _7) }
    ;
-   
-A -> %right0 let id assign E { makeId(Assign, _2, _4) }
+
+A -> %right0 let id assign E { Assign(_2, _4) }
    ;
 
 E -> %left1 E plus  E { make(BinaryOp, '+', _1, _3) }
@@ -43,25 +45,35 @@ E -> %left1 E plus  E { make(BinaryOp, '+', _1, _3) }
    | %left2 E del E { make(BinaryOp, '/', _1, _3) }
    | %right3 E pow E { make(BinaryOp,'^', _1, _3) }
    | lparen E rparen { _2 }
-   | id { Id(_1) }
+   | id { make(Id, _1) }
    | int { make(Int, _1) }
    | float { make(Float, _1) }
-   | %non4 minus E { make(UnaryOp, '-', _2) }   
-   | id lparen ArgsCall rparen { makeC(Call, _1, _3) }
+   | %non4 minus E { make(UnaryOp, '-', _2) }
+   | id lparen ArgsCall rparen { make(Call, _1, _3) }
    ;
 
-Args ->
+Args -> { tuple() }
       | Args1  { _1 }
    ;
 
-Args1 -> id doublep type comma Args1 { [Param(_1, _3)] + _5 }
-      | id doublep type { [Param(_1, _3)] }
+Args1 -> id doublep Type comma Args1 { (Param(_1, _3), *_5) }
+      | id doublep Type { (Param(_1, _3),) }
       ;
 
-ArgsCall ->
+Type -> typeInt { IntType() }
+      | typeFloat { FloatType() }
+      | lparen Types rparen typeFun Type { FunctionType(_2, _5) }
+      ;
+
+Types -> Type comma Types { [_1, *_3] }
+   | Type { [_1] }
+   | { [] }
+   ;
+
+ArgsCall -> { tuple() }
       | Args1Call  { _1 }
    ;
 
-Args1Call -> E comma Args1Call { [_1] + _3 }
-      | E { [_1] }
+Args1Call -> E comma Args1Call { (_1, *_3) }
+      | E { (_1,) }
       ;
