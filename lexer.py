@@ -412,4 +412,4 @@ def lex(input, debug = False):
             if debug: print("Got EOF while lexing \"" + text + "\"")
             yield (TokenType.eof, None)
             continue
-        raise Exception("Unexpected input: " + buf + tmp)
+        raise Exception("Unexpected input: " + buf + tmp)

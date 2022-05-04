@@ -1,6 +1,7 @@
 import copy
 
 objects={}
+functions = {}
 
 class IntType:
     def __repr__(self):
@@ -149,6 +150,12 @@ def make(f, *args):
         t = f(*args)
         objects[(f, *args)] = t
     return t
+
+def makeF(f, args, expr):
+        t = functions.get(f)
+        if t is None:
+            functions[f] = Function(f, args, expr)
+        return Function(f, args, expr)
 
 def clearObjects(arg):
     objects.clear()

@@ -33,7 +33,7 @@ S -> E { clearObjects(_1) }
    | A { clearObjects(_1) }
    ;
 
-D -> %non0 func id lparen Args rparen assign E { Function(_2, _4, _7) }
+D -> %non0 func id lparen Args rparen assign E { makeF(_2, _4, _7) }
    ;
 
 A -> %right0 let id assign E { Assign(_2, _4) }
