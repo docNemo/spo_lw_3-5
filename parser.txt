@@ -4,6 +4,7 @@
 │ 0       │ %S -> . SS %eof,%eof                                                              │
 │         │ ---                                                                               │
 │         │ A -> . let id assign E,%eof/semicol                                               │
+│         │ D -> . func id lparen Args rparen assign E,%eof/semicol                           │
 │         │ SS -> . S semicol SS,%eof                                                         │
 │         │ SS -> . S,%eof                                                                    │
 │         │ E -> . lparen E rparen,%eof/del/minus/mul/plus/pow/semicol                        │
@@ -20,7 +21,6 @@
 │         │ E -> . id,%eof/del/minus/mul/plus/pow/semicol                                     │
 │         │ E -> . int,%eof/del/minus/mul/plus/pow/semicol                                    │
 │         │ E -> . minus E,%eof/del/minus/mul/plus/pow/semicol                                │
-│         │ D -> . func id lparen Args rparen assign E,%eof/semicol                           │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
 │ 1       │ %S -> SS %eof .,%eof                                                              │
 │         │ ---                                                                               │
@@ -110,7 +110,48 @@
 │ 15      │ Type -> typeFloat .,comma/rparen                                                  │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 16      │ Type -> lparen . Types rparen typeFun Type,comma/rparen                           │
+│ 16      │ D -> func id lparen Args rparen assign . E,%eof/semicol                           │
+│         │ ---                                                                               │
+│         │ E -> . lparen E rparen,%eof/del/minus/mul/plus/pow/semicol                        │
+│         │ E -> . E mul E,%eof/del/minus/mul/plus/pow/semicol                                │
+│         │ E -> . E plus E,%eof/del/minus/mul/plus/pow/semicol                               │
+│         │ E -> . E minus E,%eof/del/minus/mul/plus/pow/semicol                              │
+│         │ E -> . E del E,%eof/del/minus/mul/plus/pow/semicol                                │
+│         │ E -> . E pow E,%eof/del/minus/mul/plus/pow/semicol                                │
+│         │ E -> . id lparen ArgsCall rparen,%eof/del/minus/mul/plus/pow/semicol              │
+│         │ E -> . float,%eof/del/minus/mul/plus/pow/semicol                                  │
+│         │ E -> . id,%eof/del/minus/mul/plus/pow/semicol                                     │
+│         │ E -> . int,%eof/del/minus/mul/plus/pow/semicol                                    │
+│         │ E -> . minus E,%eof/del/minus/mul/plus/pow/semicol                                │
+├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ 17      │ D -> func . id lparen Args rparen assign E,%eof/semicol                           │
+│         │ ---                                                                               │
+├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ 18      │ D -> func id . lparen Args rparen assign E,%eof/semicol                           │
+│         │ ---                                                                               │
+├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ 19      │ D -> func id lparen . Args rparen assign E,%eof/semicol                           │
+│         │ ---                                                                               │
+│         │ Args1 -> . id doublep Type comma Args1,rparen                                     │
+│         │ Args1 -> . id doublep Type,rparen                                                 │
+│         │ Args -> . Args1,rparen                                                            │
+│         │ Args -> .,rparen                                                                  │
+├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ 20      │ D -> func id lparen Args rparen . assign E,%eof/semicol                           │
+│         │ ---                                                                               │
+├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ 21      │ D -> func id lparen Args . rparen assign E,%eof/semicol                           │
+│         │ ---                                                                               │
+├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ 22      │ D -> func id lparen Args rparen assign E .,%eof/semicol                           │
+│         │ E -> E . mul E,%eof/del/minus/mul/plus/pow/semicol                                │
+│         │ E -> E . plus E,%eof/del/minus/mul/plus/pow/semicol                               │
+│         │ E -> E . minus E,%eof/del/minus/mul/plus/pow/semicol                              │
+│         │ E -> E . del E,%eof/del/minus/mul/plus/pow/semicol                                │
+│         │ E -> E . pow E,%eof/del/minus/mul/plus/pow/semicol                                │
+│         │ ---                                                                               │
+├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ 23      │ Type -> lparen . Types rparen typeFun Type,comma/rparen                           │
 │         │ ---                                                                               │
 │         │ Type -> . typeFloat,comma/rparen                                                  │
 │         │ Type -> . lparen Types rparen typeFun Type,comma/rparen                           │
@@ -119,27 +160,28 @@
 │         │ Types -> . Type comma Types,rparen                                                │
 │         │ Types -> . Type,rparen                                                            │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 17      │ Type -> lparen Types rparen . typeFun Type,comma/rparen                           │
+│ 24      │ Type -> lparen Types rparen . typeFun Type,comma/rparen                           │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 18      │ Type -> lparen Types rparen typeFun . Type,comma/rparen                           │
+│ 25      │ Type -> lparen Types rparen typeFun . Type,comma/rparen                           │
 │         │ ---                                                                               │
 │         │ Type -> . typeFloat,comma/rparen                                                  │
 │         │ Type -> . lparen Types rparen typeFun Type,comma/rparen                           │
 │         │ Type -> . typeInt,comma/rparen                                                    │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 19      │ Type -> lparen Types rparen typeFun Type .,comma/rparen                           │
+│ 26      │ Type -> lparen Types rparen typeFun Type .,comma/rparen                           │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 20      │ Type -> lparen Types . rparen typeFun Type,comma/rparen                           │
+│ 27      │ Type -> lparen Types . rparen typeFun Type,comma/rparen                           │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 21      │ Type -> typeInt .,comma/rparen                                                    │
+│ 28      │ Type -> typeInt .,comma/rparen                                                    │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 22      │ SS -> S semicol . SS,%eof                                                         │
+│ 29      │ SS -> S semicol . SS,%eof                                                         │
 │         │ ---                                                                               │
 │         │ A -> . let id assign E,%eof/semicol                                               │
+│         │ D -> . func id lparen Args rparen assign E,%eof/semicol                           │
 │         │ SS -> . S semicol SS,%eof                                                         │
 │         │ SS -> . S,%eof                                                                    │
 │         │ E -> . lparen E rparen,%eof/del/minus/mul/plus/pow/semicol                        │
@@ -156,16 +198,15 @@
 │         │ E -> . id,%eof/del/minus/mul/plus/pow/semicol                                     │
 │         │ E -> . int,%eof/del/minus/mul/plus/pow/semicol                                    │
 │         │ E -> . minus E,%eof/del/minus/mul/plus/pow/semicol                                │
-│         │ D -> . func id lparen Args rparen assign E,%eof/semicol                           │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 23      │ SS -> S . semicol SS,%eof                                                         │
+│ 30      │ SS -> S . semicol SS,%eof                                                         │
 │         │ SS -> S .,%eof                                                                    │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 24      │ SS -> S semicol SS .,%eof                                                         │
+│ 31      │ SS -> S semicol SS .,%eof                                                         │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 25      │ Types -> Type comma . Types,rparen                                                │
+│ 32      │ Types -> Type comma . Types,rparen                                                │
 │         │ ---                                                                               │
 │         │ Type -> . typeFloat,comma/rparen                                                  │
 │         │ Type -> . lparen Types rparen typeFun Type,comma/rparen                           │
@@ -174,20 +215,20 @@
 │         │ Types -> . Type comma Types,rparen                                                │
 │         │ Types -> . Type,rparen                                                            │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 26      │ Types -> Type . comma Types,rparen                                                │
+│ 33      │ Types -> Type . comma Types,rparen                                                │
 │         │ Types -> Type .,rparen                                                            │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 27      │ Types -> Type comma Types .,rparen                                                │
+│ 34      │ Types -> Type comma Types .,rparen                                                │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 28      │ Args -> Args1 .,rparen                                                            │
+│ 35      │ Args -> Args1 .,rparen                                                            │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 29      │ ArgsCall -> Args1Call .,rparen                                                    │
+│ 36      │ ArgsCall -> Args1Call .,rparen                                                    │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 30      │ E -> lparen . E rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
+│ 37      │ E -> lparen . E rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
 │         │ ---                                                                               │
 │         │ E -> . lparen E rparen,del/minus/mul/plus/pow/rparen                              │
 │         │ E -> . E mul E,del/minus/mul/plus/pow/rparen                                      │
@@ -201,10 +242,10 @@
 │         │ E -> . int,del/minus/mul/plus/pow/rparen                                          │
 │         │ E -> . minus E,del/minus/mul/plus/pow/rparen                                      │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 31      │ E -> lparen E rparen .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
+│ 38      │ E -> lparen E rparen .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 32      │ E -> lparen E . rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
+│ 39      │ E -> lparen E . rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
 │         │ E -> E . mul E,del/minus/mul/plus/pow/rparen                                      │
 │         │ E -> E . plus E,del/minus/mul/plus/pow/rparen                                     │
 │         │ E -> E . minus E,del/minus/mul/plus/pow/rparen                                    │
@@ -212,13 +253,13 @@
 │         │ E -> E . pow E,del/minus/mul/plus/pow/rparen                                      │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 33      │ S -> A .,%eof/semicol                                                             │
+│ 40      │ S -> A .,%eof/semicol                                                             │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 34      │ S -> D .,%eof/semicol                                                             │
+│ 41      │ S -> D .,%eof/semicol                                                             │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 35      │ S -> E .,%eof/semicol                                                             │
+│ 42      │ S -> E .,%eof/semicol                                                             │
 │         │ E -> E . mul E,%eof/del/minus/mul/plus/pow/semicol                                │
 │         │ E -> E . plus E,%eof/del/minus/mul/plus/pow/semicol                               │
 │         │ E -> E . minus E,%eof/del/minus/mul/plus/pow/semicol                              │
@@ -226,7 +267,7 @@
 │         │ E -> E . pow E,%eof/del/minus/mul/plus/pow/semicol                                │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 36      │ E -> E mul . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 43      │ E -> E mul . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 │         │ E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
 │         │ E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
@@ -240,7 +281,7 @@
 │         │ E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                       │
 │         │ E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 37      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 44      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ E -> E mul E .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                  │
 │         │ E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                 │
@@ -248,7 +289,7 @@
 │         │ E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 38      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 45      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                  │
 │         │ E -> E plus E .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                  │
 │         │ E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                 │
@@ -256,7 +297,7 @@
 │         │ E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 39      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 46      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                  │
 │         │ E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                 │
 │         │ E -> E minus E .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                 │
@@ -264,7 +305,7 @@
 │         │ E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 40      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 47      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                  │
 │         │ E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                 │
 │         │ E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
@@ -272,7 +313,7 @@
 │         │ E -> E . pow E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 41      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 48      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                  │
 │         │ E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                 │
 │         │ E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
@@ -280,7 +321,7 @@
 │         │ E -> E pow E .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 42      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 49      │ E -> E . mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ E -> E . plus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                  │
 │         │ E -> E . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                 │
 │         │ E -> E . del E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
@@ -288,15 +329,7 @@
 │         │ E -> minus E .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 43      │ E -> E . mul E,%eof/del/minus/mul/plus/pow/semicol                                │
-│         │ E -> E . plus E,%eof/del/minus/mul/plus/pow/semicol                               │
-│         │ E -> E . minus E,%eof/del/minus/mul/plus/pow/semicol                              │
-│         │ E -> E . del E,%eof/del/minus/mul/plus/pow/semicol                                │
-│         │ E -> E . pow E,%eof/del/minus/mul/plus/pow/semicol                                │
-│         │ D -> func id lparen Args rparen assign E .,%eof/semicol                           │
-│         │ ---                                                                               │
-├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 44      │ E -> E plus . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                  │
+│ 50      │ E -> E plus . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                  │
 │         │ ---                                                                               │
 │         │ E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
 │         │ E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
@@ -310,7 +343,7 @@
 │         │ E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                       │
 │         │ E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 45      │ E -> E minus . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                 │
+│ 51      │ E -> E minus . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                 │
 │         │ ---                                                                               │
 │         │ E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
 │         │ E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
@@ -324,7 +357,7 @@
 │         │ E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                       │
 │         │ E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 46      │ E -> E del . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 52      │ E -> E del . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 │         │ E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
 │         │ E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
@@ -338,7 +371,7 @@
 │         │ E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                       │
 │         │ E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 47      │ E -> E pow . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 53      │ E -> E pow . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 │         │ E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
 │         │ E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
@@ -352,11 +385,11 @@
 │         │ E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                       │
 │         │ E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 48      │ E -> id . lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol │
+│ 54      │ E -> id . lparen ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol │
 │         │ E -> id .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                        │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 49      │ E -> id lparen . ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol │
+│ 55      │ E -> id lparen . ArgsCall rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol │
 │         │ ---                                                                               │
 │         │ Args1Call -> . E comma Args1Call,rparen                                           │
 │         │ Args1Call -> . E,rparen                                                           │
@@ -374,19 +407,19 @@
 │         │ E -> . minus E,comma/del/minus/mul/plus/pow/rparen                                │
 │         │ ArgsCall -> .,rparen                                                              │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 50      │ E -> id lparen ArgsCall rparen .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol │
+│ 56      │ E -> id lparen ArgsCall rparen .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 51      │ E -> id lparen ArgsCall . rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol │
+│ 57      │ E -> id lparen ArgsCall . rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 52      │ E -> float .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                     │
+│ 58      │ E -> float .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                     │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 53      │ E -> int .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                       │
+│ 59      │ E -> int .,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                       │
 │         │ ---                                                                               │
 ├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 54      │ E -> minus . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
+│ 60      │ E -> minus . E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
 │         │ ---                                                                               │
 │         │ E -> . lparen E rparen,%eof/comma/del/minus/mul/plus/pow/rparen/semicol           │
 │         │ E -> . E mul E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
@@ -399,44 +432,11 @@
 │         │ E -> . id,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                        │
 │         │ E -> . int,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                       │
 │         │ E -> . minus E,%eof/comma/del/minus/mul/plus/pow/rparen/semicol                   │
-├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 55      │ D -> func id lparen Args rparen assign . E,%eof/semicol                           │
-│         │ ---                                                                               │
-│         │ E -> . lparen E rparen,%eof/del/minus/mul/plus/pow/semicol                        │
-│         │ E -> . E mul E,%eof/del/minus/mul/plus/pow/semicol                                │
-│         │ E -> . E plus E,%eof/del/minus/mul/plus/pow/semicol                               │
-│         │ E -> . E minus E,%eof/del/minus/mul/plus/pow/semicol                              │
-│         │ E -> . E del E,%eof/del/minus/mul/plus/pow/semicol                                │
-│         │ E -> . E pow E,%eof/del/minus/mul/plus/pow/semicol                                │
-│         │ E -> . id lparen ArgsCall rparen,%eof/del/minus/mul/plus/pow/semicol              │
-│         │ E -> . float,%eof/del/minus/mul/plus/pow/semicol                                  │
-│         │ E -> . id,%eof/del/minus/mul/plus/pow/semicol                                     │
-│         │ E -> . int,%eof/del/minus/mul/plus/pow/semicol                                    │
-│         │ E -> . minus E,%eof/del/minus/mul/plus/pow/semicol                                │
-├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 56      │ D -> func . id lparen Args rparen assign E,%eof/semicol                           │
-│         │ ---                                                                               │
-├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 57      │ D -> func id . lparen Args rparen assign E,%eof/semicol                           │
-│         │ ---                                                                               │
-├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 58      │ D -> func id lparen . Args rparen assign E,%eof/semicol                           │
-│         │ ---                                                                               │
-│         │ Args1 -> . id doublep Type comma Args1,rparen                                     │
-│         │ Args1 -> . id doublep Type,rparen                                                 │
-│         │ Args -> . Args1,rparen                                                            │
-│         │ Args -> .,rparen                                                                  │
-├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 59      │ D -> func id lparen Args rparen . assign E,%eof/semicol                           │
-│         │ ---                                                                               │
-├─────────┼───────────────────────────────────────────────────────────────────────────────────┤
-│ 60      │ D -> func id lparen Args . rparen assign E,%eof/semicol                           │
-│         │ ---                                                                               │
 └─────────┴───────────────────────────────────────────────────────────────────────────────────┘
 ┌────┬──────┬────────┬───────┬─────┬─────────┬───────┬──────┬────┬─────┬─────┬────────┬───────┬─────┬──────┬─────┬────────┬─────────┬───────────┬─────────┬─────────┬────┬──────┬───────┬───────────┬──────────┬────┬────┬────┬────┬──────┬───────┐
 │    │ %eof │ assign │ comma │ del │ doublep │ float │ func │ id │ int │ let │ lparen │ minus │ mul │ plus │ pow │ rparen │ semicol │ typeFloat │ typeFun │ typeInt │ A  │ Args │ Args1 │ Args1Call │ ArgsCall │ D  │ E  │ S  │ SS │ Type │ Types │
 ╞════╪══════╪════════╪═══════╪═════╪═════════╪═══════╪══════╪════╪═════╪═════╪════════╪═══════╪═════╪══════╪═════╪════════╪═════════╪═══════════╪═════════╪═════════╪════╪══════╪═══════╪═══════════╪══════════╪════╪════╪════╪════╪══════╪═══════╡
-│ 0  │      │        │       │     │         │ 52    │ 56   │ 48 │ 53  │ 13  │ 30     │ 54    │     │      │     │        │         │           │         │         │ 33 │      │       │           │          │ 34 │ 35 │ 23 │ 2  │      │       │
+│ 0  │      │        │       │     │         │ 58    │ 17   │ 54 │ 59  │ 13  │ 37     │ 60    │     │      │     │        │         │           │         │         │ 40 │      │       │           │          │ 41 │ 42 │ 30 │ 2  │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 1  │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
@@ -444,7 +444,7 @@
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 3  │      │        │       │     │         │       │      │ 5  │     │     │        │       │     │      │     │        │         │           │         │         │    │      │ 6     │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 4  │      │        │       │     │         │       │      │    │     │     │ 16     │       │     │      │     │        │         │ 15        │         │ 21      │    │      │       │           │          │    │    │    │    │ 7    │       │
+│ 4  │      │        │       │     │         │       │      │    │     │     │ 23     │       │     │      │     │        │         │ 15        │         │ 28      │    │      │       │           │          │    │    │    │    │ 7    │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 5  │      │        │       │     │ 4       │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
@@ -452,109 +452,109 @@
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 7  │      │        │ 3     │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 8  │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │ 9         │          │    │ 10 │    │    │      │       │
+│ 8  │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │ 9         │          │    │ 10 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 9  │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 10 │      │        │ 8     │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 10 │      │        │ 8     │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 11 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 14 │    │    │      │       │
+│ 11 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 14 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 12 │      │ 11     │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 13 │      │        │       │     │         │       │      │ 12 │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 14 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 14 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 15 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 16 │      │        │       │     │         │       │      │    │     │     │ 16     │       │     │      │     │        │         │ 15        │         │ 21      │    │      │       │           │          │    │    │    │    │ 26   │ 20    │
+│ 16 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 22 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 17 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │ 18      │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 17 │      │        │       │     │         │       │      │ 18 │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 18 │      │        │       │     │         │       │      │    │     │     │ 16     │       │     │      │     │        │         │ 15        │         │ 21      │    │      │       │           │          │    │    │    │    │ 19   │       │
+│ 18 │      │        │       │     │         │       │      │    │     │     │ 19     │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 19 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 19 │      │        │       │     │         │       │      │ 5  │     │     │        │       │     │      │     │        │         │           │         │         │    │ 21   │ 35    │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 20 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │ 17     │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 20 │      │ 16     │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 21 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 21 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │ 20     │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 22 │      │        │       │     │         │ 52    │ 56   │ 48 │ 53  │ 13  │ 30     │ 54    │     │      │     │        │         │           │         │         │ 33 │      │       │           │          │ 34 │ 35 │ 23 │ 24 │      │       │
+│ 22 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 23 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │ 22      │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 23 │      │        │       │     │         │       │      │    │     │     │ 23     │       │     │      │     │        │         │ 15        │         │ 28      │    │      │       │           │          │    │    │    │    │ 33   │ 27    │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 24 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 24 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │ 25      │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 25 │      │        │       │     │         │       │      │    │     │     │ 16     │       │     │      │     │        │         │ 15        │         │ 21      │    │      │       │           │          │    │    │    │    │ 26   │ 27    │
+│ 25 │      │        │       │     │         │       │      │    │     │     │ 23     │       │     │      │     │        │         │ 15        │         │ 28      │    │      │       │           │          │    │    │    │    │ 26   │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 26 │      │        │ 25    │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 26 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 27 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 27 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │ 24     │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 28 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 29 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 29 │      │        │       │     │         │ 58    │ 17   │ 54 │ 59  │ 13  │ 37     │ 60    │     │      │     │        │         │           │         │         │ 40 │      │       │           │          │ 41 │ 42 │ 30 │ 31 │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 30 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 32 │    │    │      │       │
+│ 30 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │ 29      │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 31 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 32 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │ 31     │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 32 │      │        │       │     │         │       │      │    │     │     │ 23     │       │     │      │     │        │         │ 15        │         │ 28      │    │      │       │           │          │    │    │    │    │ 33   │ 34    │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 33 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 33 │      │        │ 32    │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
 │ 34 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 35 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 35 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 36 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 37 │    │    │      │       │
+│ 36 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 37 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 37 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 39 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 38 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 38 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 39 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 39 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │ 38     │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 40 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 40 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 41 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 41 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 42 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 42 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 43 │      │        │       │ 46  │         │       │      │    │     │     │        │ 45    │ 36  │ 44   │ 47  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 43 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 44 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 44 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 38 │    │    │      │       │
+│ 44 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 45 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 39 │    │    │      │       │
+│ 45 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 46 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 40 │    │    │      │       │
+│ 46 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 47 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 41 │    │    │      │       │
+│ 47 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 48 │      │        │       │     │         │       │      │    │     │     │ 49     │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 48 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 49 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │ 29        │ 51       │    │ 10 │    │    │      │       │
+│ 49 │      │        │       │ 52  │         │       │      │    │     │     │        │ 51    │ 43  │ 50   │ 53  │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 50 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 50 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 45 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 51 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │ 50     │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 51 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 46 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 52 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 52 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 47 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 53 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 53 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 48 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 54 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 42 │    │    │      │       │
+│ 54 │      │        │       │     │         │       │      │    │     │     │ 55     │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 55 │      │        │       │     │         │ 52    │      │ 48 │ 53  │     │ 30     │ 54    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 43 │    │    │      │       │
+│ 55 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │ 36        │ 57       │    │ 10 │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 56 │      │        │       │     │         │       │      │ 57 │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 56 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 57 │      │        │       │     │         │       │      │    │     │     │ 58     │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 57 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │ 56     │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 58 │      │        │       │     │         │       │      │ 5  │     │     │        │       │     │      │     │        │         │           │         │         │    │ 60   │ 28    │           │          │    │    │    │    │      │       │
+│ 58 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 59 │      │ 55     │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 59 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │        │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
 ├────┼──────┼────────┼───────┼─────┼─────────┼───────┼──────┼────┼─────┼─────┼────────┼───────┼─────┼──────┼─────┼────────┼─────────┼───────────┼─────────┼─────────┼────┼──────┼───────┼───────────┼──────────┼────┼────┼────┼────┼──────┼───────┤
-│ 60 │      │        │       │     │         │       │      │    │     │     │        │       │     │      │     │ 59     │         │           │         │         │    │      │       │           │          │    │    │    │    │      │       │
+│ 60 │      │        │       │     │         │ 58    │      │ 54 │ 59  │     │ 37     │ 60    │     │      │     │        │         │           │         │         │    │      │       │           │          │    │ 49 │    │    │      │       │
 └────┴──────┴────────┴───────┴─────┴─────────┴───────┴──────┴────┴─────┴─────┴────────┴───────┴─────┴──────┴─────┴────────┴─────────┴───────────┴─────────┴─────────┴────┴──────┴───────┴───────────┴──────────┴────┴────┴────┴────┴──────┴───────┘
