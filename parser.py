@@ -153,7 +153,7 @@ class Parser:
             action = self.Action[top()][int(a[0])]
             if action == 62:
                 stack.pop()
-                return stack.pop()[1]
+                return stack.pop()[1]
             elif action == 67:
                 if self.debug: print("Reduce using A -> let id assign E")
                 _4 = stack.pop()[1]
@@ -165,7 +165,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(Assign(_2, _4))))
+                stack.append((gt,(Assign(_2, _4))))
             elif action == 69:
                 if self.debug: print("Reduce using Args -> ")
                 
@@ -174,7 +174,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(tuple())))
+                stack.append((gt,(tuple())))
             elif action == 78:
                 if self.debug: print("Reduce using Args -> Args1")
                 _1 = stack.pop()[1]
@@ -183,7 +183,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(_1)))
+                stack.append((gt,(_1)))
             elif action == 64:
                 if self.debug: print("Reduce using Args1 -> id doublep Type")
                 _3 = stack.pop()[1]
@@ -194,7 +194,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,((Param(_1, _3),))))
+                stack.append((gt,((Param(_1, _3),))))
             elif action == 63:
                 if self.debug: print("Reduce using Args1 -> id doublep Type comma Args1")
                 _5 = stack.pop()[1]
@@ -207,7 +207,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,((Param(_1, _3), *_5))))
+                stack.append((gt,((Param(_1, _3), *_5))))
             elif action == 66:
                 if self.debug: print("Reduce using Args1Call -> E")
                 _1 = stack.pop()[1]
@@ -216,7 +216,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,((_1,))))
+                stack.append((gt,((_1,))))
             elif action == 65:
                 if self.debug: print("Reduce using Args1Call -> E comma Args1Call")
                 _3 = stack.pop()[1]
@@ -227,7 +227,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,((_1, *_3))))
+                stack.append((gt,((_1, *_3))))
             elif action == 91:
                 if self.debug: print("Reduce using ArgsCall -> ")
                 
@@ -236,7 +236,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(tuple())))
+                stack.append((gt,(tuple())))
             elif action == 79:
                 if self.debug: print("Reduce using ArgsCall -> Args1Call")
                 _1 = stack.pop()[1]
@@ -245,7 +245,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(_1)))
+                stack.append((gt,(_1)))
             elif action == 70:
                 if self.debug: print("Reduce using D -> func id lparen Args rparen assign E")
                 _7 = stack.pop()[1]
@@ -260,7 +260,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(Function(_2, _4, _7))))
+                stack.append((gt,(Function(_2, _4, _7))))
             elif action == 93:
                 if self.debug: print("Reduce using E -> float")
                 _1 = stack.pop()[1][1]
@@ -269,7 +269,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(Float, _1))))
+                stack.append((gt,(make(Float, _1))))
             elif action == 90:
                 if self.debug: print("Reduce using E -> id")
                 _1 = stack.pop()[1][1]
@@ -278,7 +278,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(Id, _1))))
+                stack.append((gt,(make(Id, _1))))
             elif action == 92:
                 if self.debug: print("Reduce using E -> id lparen ArgsCall rparen")
                 _4 = stack.pop()[1][1]
@@ -290,7 +290,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(Call, _1, _3))))
+                stack.append((gt,(make(Call, _1, _3))))
             elif action == 94:
                 if self.debug: print("Reduce using E -> int")
                 _1 = stack.pop()[1][1]
@@ -299,7 +299,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(Int, _1))))
+                stack.append((gt,(make(Int, _1))))
             elif action == 80:
                 if self.debug: print("Reduce using E -> lparen E rparen")
                 _3 = stack.pop()[1][1]
@@ -310,7 +310,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(_2)))
+                stack.append((gt,(_2)))
             elif action == 89:
                 if self.debug: print("Reduce using E -> minus E")
                 _2 = stack.pop()[1]
@@ -320,7 +320,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(UnaryOp, '-', _2))))
+                stack.append((gt,(make(UnaryOp, '-', _2))))
             elif action == 87:
                 if self.debug: print("Reduce using E -> E del E")
                 _3 = stack.pop()[1]
@@ -331,7 +331,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(BinaryOp, '/', _1, _3))))
+                stack.append((gt,(make(BinaryOp, '/', _1, _3))))
             elif action == 86:
                 if self.debug: print("Reduce using E -> E minus E")
                 _3 = stack.pop()[1]
@@ -342,7 +342,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(BinaryOp, '-', _1, _3))))
+                stack.append((gt,(make(BinaryOp, '-', _1, _3))))
             elif action == 84:
                 if self.debug: print("Reduce using E -> E mul E")
                 _3 = stack.pop()[1]
@@ -353,7 +353,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(BinaryOp, '*', _1, _3))))
+                stack.append((gt,(make(BinaryOp, '*', _1, _3))))
             elif action == 85:
                 if self.debug: print("Reduce using E -> E plus E")
                 _3 = stack.pop()[1]
@@ -364,7 +364,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(BinaryOp, '+', _1, _3))))
+                stack.append((gt,(make(BinaryOp, '+', _1, _3))))
             elif action == 88:
                 if self.debug: print("Reduce using E -> E pow E")
                 _3 = stack.pop()[1]
@@ -375,7 +375,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(make(BinaryOp,'^', _1, _3))))
+                stack.append((gt,(make(BinaryOp,'^', _1, _3))))
             elif action == 81:
                 if self.debug: print("Reduce using S -> A")
                 _1 = stack.pop()[1]
@@ -384,7 +384,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(clearObjects(_1))))
+                stack.append((gt,(clearObjects(_1))))
             elif action == 82:
                 if self.debug: print("Reduce using S -> D")
                 _1 = stack.pop()[1]
@@ -393,7 +393,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(clearObjects(_1))))
+                stack.append((gt,(clearObjects(_1))))
             elif action == 83:
                 if self.debug: print("Reduce using S -> E")
                 _1 = stack.pop()[1]
@@ -402,7 +402,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(clearObjects(_1))))
+                stack.append((gt,(clearObjects(_1))))
             elif action == 74:
                 if self.debug: print("Reduce using SS -> S")
                 _1 = stack.pop()[1]
@@ -411,7 +411,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,([_1])))
+                stack.append((gt,([_1])))
             elif action == 75:
                 if self.debug: print("Reduce using SS -> S semicol SS")
                 _3 = stack.pop()[1]
@@ -422,7 +422,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,([_1, *_3])))
+                stack.append((gt,([_1, *_3])))
             elif action == 72:
                 if self.debug: print("Reduce using Type -> lparen Types rparen typeFun Type")
                 _5 = stack.pop()[1]
@@ -435,7 +435,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(FunctionType(_2, _5))))
+                stack.append((gt,(FunctionType(_2, _5))))
             elif action == 68:
                 if self.debug: print("Reduce using Type -> typeFloat")
                 _1 = stack.pop()[1][1]
@@ -444,7 +444,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(FloatType())))
+                stack.append((gt,(FloatType())))
             elif action == 73:
                 if self.debug: print("Reduce using Type -> typeInt")
                 _1 = stack.pop()[1][1]
@@ -453,7 +453,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,(IntType())))
+                stack.append((gt,(IntType())))
             elif action == 71:
                 if self.debug: print("Reduce using Types -> ")
                 
@@ -462,7 +462,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,([])))
+                stack.append((gt,([])))
             elif action == 76:
                 if self.debug: print("Reduce using Types -> Type")
                 _1 = stack.pop()[1]
@@ -471,7 +471,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,([_1])))
+                stack.append((gt,([_1])))
             elif action == 77:
                 if self.debug: print("Reduce using Types -> Type comma Types")
                 _3 = stack.pop()[1]
@@ -482,7 +482,7 @@ class Parser:
                 if self.debug:
                     print(f'{top()} is now on top of the stack;')
                     print(f'{gt} will be placed on the stack')
-                stack.append((gt,([_1, *_3])))
+                stack.append((gt,([_1, *_3])))
             elif action == 61:
                 lastSt = top()
                 parsed=stateToString(lastSt)
@@ -490,8 +490,8 @@ class Parser:
                     stack.pop()
                     parsed = stateToString(top()) + " " + parsed
                 raise Exception(
-                  f'Rejection state reached after parsing "{parsed}", when encoutered symbol "{a[0].name}" in state {lastSt}. Expected "{expectedSym(lastSt)}"')
+                  f'Rejection state reached after parsing "{parsed}", when encoutered symbol "{a[0].name}" in state {lastSt}. Expected "{expectedSym(lastSt)}"')
             else:
                 if self.debug: print(f"Shift to {action}")
                 stack.append((action, a))
-                a=next(tokens)
+                a=next(tokens)
