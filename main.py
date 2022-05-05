@@ -12,7 +12,8 @@ input = ''' let a1 = 3 * 4.0;
             f(2);
             func f2(f:(float) -> float) = f(5);
             func f3() = 5;
-            f3()
+            f3();
+            2 + 2 * 2
             '''
 
 parser = Parser()
